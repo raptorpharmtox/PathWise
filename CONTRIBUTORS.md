@@ -1,5 +1,11 @@
+By submitting content to this repository, you agree to license your contributions under the [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 
 ## How to contribute to AOPCommons
+
+#### **Add your information as a contributor** ####
+
+* Make sure to add your information as a contributor to whatever it is you make changes/edits to, or any files you add.
+* See any of the .json files for an example.
 
 #### **Did you find a bug?**
 
