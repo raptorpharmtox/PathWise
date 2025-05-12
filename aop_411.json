@@ -1,0 +1,42 @@
+{
+  "aop_id": "AOP:411",
+  "title": "Oxidative stress leading to decreased lung function",
+  "contributors": [
+    {
+      "name": "Lyle D. Burgoon, Ph.D.",
+      "affiliation": "Raptor Pharm & Tox, Ltd.",
+      "orcid": "0000-0002-1825-0097",
+      "roles": ["lead", "initial submission"]
+    },
+    {
+      "name": "Jane Doe",
+      "affiliation": "University of Toxicology",
+      "orcid": "0000-0003-4567-8901",
+      "roles": ["ontology mapping", "curation"]
+    }
+  ],
+  "key_events": [
+    {
+      "id": "KE:1",
+      "title": "Oxidative stress",
+      "description": "An imbalance between the production of reactive oxygen species and antioxidant defenses.",
+      "ontology_id": "http://purl.bioontology.org/ontology/MEDDRA/10080562",
+      "ontology_label": "Oxidative stress (http://purl.bioontology.org/ontology/MEDDRA/10080562)"
+    },
+    {
+      "id": "KE:2",
+      "title": "Decreased lung function",
+      "description": "Impaired ability of lungs to perform normal respiratory functions.",
+      "ontology_id": "http://purl.bioontology.org/ontology/MEDDRA/10025094",
+      "ontology_label": "Lung function decreased (NOS) (http://purl.bioontology.org/ontology/MEDDRA/10025094)"
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": "leads to"
+    }
+  ]
+}
