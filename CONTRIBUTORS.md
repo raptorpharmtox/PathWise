@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 
 ## How to contribute to AOPCommons
 
+=======
+By submitting content to this repository, you agree to license your contributions under the [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
+
+## How to contribute to AOPCommons
+
+#### **Add your information as a contributor** ####
+
+* Make sure to add your information as a contributor to whatever it is you make changes/edits to, or any files you add.
+* See any of the .json files for an example.
+
+>>>>>>> f9696273b5a4122bba5b33d54d0c374f8f8f31ec
 #### **Did you find a bug?**
 
 * **Ensure the bug was not already reported** by searching on GitHub under Issues.
@@ -27,4 +39,8 @@ AOPCommons is an open source project that needs your help! Please volunteer to m
 
 Thanks again for your help and support of AOPCommons!
 
+<<<<<<< HEAD
 -- The AOPCommons Team and our sponsor, Raptor Pharm & Tox, Ltd.
+=======
+-- The AOPCommons Team and our sponsor, Raptor Pharm & Tox, Ltd.
+>>>>>>> f9696273b5a4122bba5b33d54d0c374f8f8f31ec

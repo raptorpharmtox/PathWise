@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 The JUPYTER notebook is designed to be uploaded to Google Colab. So I'm going to host it in my google drive as a template. Then others can copy the template and make it their own. 
 
 We will have versions of the notebook for others to use as a guide on Github.
@@ -15,3 +16,7 @@ We will also need a web-based GUI that people can run to overlay their data onto
 Ultimately I will want to be able to come up with a batter of in vitro assays that covers a large swath of space.
 
 Commercial vendors can pay to advertise in the system to have their assays listed at the top of our results.
+=======
+# AOPCommons
+Home of the AOPCommons open source Adverse Outcome Pathway project.
+>>>>>>> f9696273b5a4122bba5b33d54d0c374f8f8f31ec
