@@ -1,0 +1,128 @@
+{
+  "aop_id": "oxidative_stress@lung_function",
+  "title": "Increased oxidative stress leading to decreased lung function",
+  "key_events": [
+    {
+      "id": "KE:1",
+      "title": "Oxidative stress",
+      "description": "An imbalance between the production of reactive oxygen species and antioxidant defenses.",
+      "ontology_id": "http://purl.bioontology.org/ontology/MESH/D018384",
+      "ontology_label": "Oxidative Stress (http://purl.bioontology.org/ontology/MESH/D018384)"
+    },
+    {
+      "id": "KE:2",
+      "title": "CFTR function",
+      "description": "CFTR protein is a membrane-bound chloride channel",
+      "ontology_id": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:1884",
+      "ontology_label": "CFTR (https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:1884)"
+    },
+    {
+      "id": "KE:3",
+      "title": "Airway surface liquid (ASL) height",
+      "description": "The thickness of the liquid on the surface of the airway",
+      "ontology_id": "",
+      "ontology_label": "(skip)"
+    },
+    {
+      "id": "KE:4",
+      "title": "FOXJ1 Protein",
+      "description": "FOXJ1 transcription factor",
+      "ontology_id": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:3816",
+      "ontology_label": "FOXJ1 (https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:3816)"
+    },
+    {
+      "id": "KE:5",
+      "title": "Motile cilia number/length",
+      "description": "Cilia in the airway that beat in a coordinated fashion to clear the airways",
+      "ontology_id": "",
+      "ontology_label": "(skip)"
+    },
+    {
+      "id": "KE:6",
+      "title": "Ciliary beat frequency",
+      "description": "The frequency at which cilia beat in a coordinated manner in the airway",
+      "ontology_id": "http://purl.bioontology.org/ontology/OMIM/MTHU070864",
+      "ontology_label": "Normal ciliary beat frequency (http://purl.bioontology.org/ontology/OMIM/MTHU070864)"
+    },
+    {
+      "id": "KE:7",
+      "title": "Mucociliary clearance",
+      "description": "The ability of the motile cilia to rhythmically beat to remove mucus from the airway",
+      "ontology_id": "http://purl.bioontology.org/ontology/MESH/D009079",
+      "ontology_label": "Mucociliary Clearance (http://purl.bioontology.org/ontology/MESH/D009079)"
+    },
+    {
+      "id": "KE:8",
+      "title": "Lung function",
+      "description": "Ability of lungs to perform normal respiratory functions.",
+      "ontology_id": "http://purl.bioontology.org/ontology/phenX/810400",
+      "ontology_label": "Normal ventilation-perfusion ratio (http://purl.bioontology.org/ontology/SNOMEDCT/60569002)"
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "increased/decreased"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:1",
+      "target": "KE:4",
+      "relationship": [
+        "increased/decreased"
+      ]
+    },
+    {
+      "id": "KER:4",
+      "source": "KE:4",
+      "target": "KE:5",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    },
+    {
+      "id": "KER:5",
+      "source": "KE:3",
+      "target": "KE:6",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    },
+    {
+      "id": "KER:6",
+      "source": "KE:5",
+      "target": "KE:6",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    },
+    {
+      "id": "KER:7",
+      "source": "KE:6",
+      "target": "KE:7",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    },
+    {
+      "id": "KER:8",
+      "source": "KE:7",
+      "target": "KE:8",
+      "relationship": [
+        "decreased/decreased"
+      ]
+    }
+  ]
+}
