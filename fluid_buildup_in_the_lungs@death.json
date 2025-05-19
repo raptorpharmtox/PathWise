@@ -1,0 +1,75 @@
+{
+  "aop_id": "fluid_buildup_in_the_lungs@death_1",
+  "title": "Lack of gas exchange due to drowning leads to death",
+  "key_events": [
+    {
+      "id": "KE:1",
+      "title": "Fluid buildup in the lungs",
+      "description": "Exchange of oxygen and carbon dioxide between the lungs and blood",
+      "mie": true,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "title": "Gas exchange",
+      "description": "Exchange of oxygen and carbon dioxide between the lungs and blood",
+      "mie": true,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "title": "hypoxia",
+        "description": "Lack of oxygen in the blood",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "title": "Cellular respiration",
+        "description": "Cellular respiration is the process of converting glucose and oxygen into energy",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "title": "Death",
+        "description": "Death of the organism",
+        "mie": false,
+        "adverse_outcome": true
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "increases/inhibits"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "activated/increases"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "present/decreases"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+            "decreased/causes"
+        ]
+    }
+  ]
+}

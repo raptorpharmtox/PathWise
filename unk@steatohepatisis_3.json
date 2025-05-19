@@ -1,0 +1,90 @@
+{
+  "aop_id": "unk@streatosis_3",
+  "title": "DHB4 inhibition leading to steatohepatitis",
+  "key_events": [
+    {
+      "id": "KE:1",
+      "title": "Uknown",
+      "description": "Unknown key event",
+      "mie": true,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:2",
+        "title": "DHB4/HSD17B4",
+        "description": "Peroxisomal multifunctional enzyme type 2",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "title": "Fatty acid beta oxidation",
+        "description": "Fatty acid beta oxidation", 
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "title": "Steatosis",
+        "description": "Accumulation of fat in the liver",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "title": "Oncotic necrosis",
+        "description": "Oncotic necrosis of hepatocytes",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:6",
+        "title": "Steatohepatitis",
+        "description": "Inflammation of the liver due to fat accumulation",
+        "mie": false,
+        "adverse_outcome": true
+    }    
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "unknown/inhibited"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "activated/increased"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "increased/decreased"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+            "increased/increased"
+        ]
+    },
+    {
+      "id": "KER:5",
+      "source": "KE:5",
+      "target": "KE:6",
+      "relationship": [
+        "increased/decreased"
+      ]
+    }
+  ]
+}
