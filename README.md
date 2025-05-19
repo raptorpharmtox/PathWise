@@ -1,4 +1,4 @@
-# AOPCommons
+# PathwayCommons
 Home of the AOPCommons open source Adverse Outcome Pathway project.
 
 # Background
