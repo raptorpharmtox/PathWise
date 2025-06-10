@@ -1,5 +1,5 @@
 {
-  "aop_id": "unk@streatosis_2",
+  "aop_id": "unk@streatosis_1",
   "title": "FXR activation leading to steatosis",
   "key_events": [
     {
@@ -25,41 +25,34 @@
     },
     {
         "id": "KE:4",
-        "title": "SHP",
-        "description": "Small heterodimer partner",
-        "mie": false,
-        "adverse_outcome": false
-    },
-    {
-        "id": "KE:5",
         "title": "DHB4/HSD17B4",
         "description": "Peroxisomal multifunctional enzyme type 2",
         "mie": false,
         "adverse_outcome": false
     },
     {
-        "id": "KE:6",
+        "id": "KE:5",
         "title": "Fatty acid beta oxidation",
         "description": "Fatty acid beta oxidation", 
         "mie": false,
         "adverse_outcome": false
     },
     {
-        "id": "KE:7",
+        "id": "KE:6",
         "title": "Steatosis",
         "description": "Accumulation of fat in the liver",
         "mie": false,
         "adverse_outcome": false
     },
     {
-        "id": "KE:8",
+        "id": "KE:7",
         "title": "Oncotic necrosis",
         "description": "Oncotic necrosis of hepatocytes",
         "mie": false,
         "adverse_outcome": false
     },
     {
-        "id": "KE:9",
+        "id": "KE:8",
         "title": "Steatohepatitis",
         "description": "Inflammation of the liver due to fat accumulation",
         "mie": false,
@@ -85,58 +78,42 @@
     },
     {
       "id": "KER:3",
-      "source": "KE:2",
+      "source": "KE:3",
       "target": "KE:4",
       "relationship": [
-        "activated/increases"
+        "activated/increased"
       ]
     },
     {
-        "id": "KER:4",
-        "source": "KE:4",
-        "target": "KE:3",
-        "relationship": [
-            "increases/activated"
-        ]
+      "id": "KER:4",
+      "source": "KE:4",
+      "target": "KE:5",
+      "relationship": [
+        "increased/increased"
+      ]
     },
     {
-        "id": "KER:5",
-        "source": "KE:3",
-        "target": "KE:5",
-        "relationship": [
-            "increases/increases"
-        ]
-    },
-    {
-      "id": "KER:6",
+      "id": "KER:5",
       "source": "KE:5",
       "target": "KE:6",
       "relationship": [
-        "increases/decreases"
+        "increased/decreased"
+      ]
+    },
+    {
+      "id": "KER:6",
+      "source": "KE:6",
+      "target": "KE:7",
+      "relationship": [
+        "increased/increased"
       ]
     },
     {
       "id": "KER:7",
-      "source": "KE:6",
-      "target": "KE:7",
-      "relationship": [
-        "increases/increases"
-      ]
-    },
-    {
-      "id": "KER:8",
       "source": "KE:7",
       "target": "KE:8",
       "relationship": [
-        "increases/increases"
-      ]
-    },
-    {
-      "id": "KER:9",
-      "source": "KE:8",
-      "target": "KE:9",
-      "relationship": [
-        "increases/increases"
+        "increased/increased"
       ]
     }
   ]
