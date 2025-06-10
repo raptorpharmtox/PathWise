@@ -1,5 +1,5 @@
-# PathwayCommons
-Home of the AOPCommons open source Adverse Outcome Pathway project.
+# PathwayWise
+Home of PathWise: the open source Adverse Outcome Pathway project.
 
 # Background
 
