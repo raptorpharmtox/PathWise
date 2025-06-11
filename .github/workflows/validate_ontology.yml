@@ -1,0 +1,27 @@
+name: Validate Ontology JSON
+
+on:
+  pull_request:
+    paths:
+      - './ontology/pathwise-ontology.json'
+      - './ontology/schema.json'
+      - './ontology/validate.py'
+      - '.github/workflows/validate-ontology.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install jsonschema
+
+      - name: Run ontology validator
+        run: python validate.py
