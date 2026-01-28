@@ -1,0 +1,147 @@
+{
+"aop_id": "unk@development_of_heart_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+      "id": "KE:1",
+      "biological_entity_id": "cardiogenic_mesoderm",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "biological_entity_id": "cardiogenic_field",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "heart_tube",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "endocardium_myocardium_epicardium",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "outflow_tract_and_chambers",
+        "mie": false,       
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:6",
+        "biological_entity_id": "myocardium_endocardium",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   
+        "id": "KE:7",
+        "biological_entity_id": "sinus_venosus_epicardium",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:8",
+        "biological_entity_id": "atria_ventricles_junction_cananal",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:9",
+        "biological_entity_id": "right_and_left_atria_ventricles",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:10",
+        "biological_entity_id": "conus_cordis_truncus_arteriosus",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:11",
+        "biological_entity_id": "looping_of_heart_tube",
+        "mie": false,
+        "adverse_outcome": false
+    }
+
+],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "proliferates_into", "forms"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:5",
+        "source": "KE:4",
+        "target": "KE:6",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:6",
+        "source": "KE:4",
+        "target": "KE:7",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:7",
+        "source": "KE:11",
+        "target": "KE:8",
+        "relationship": [
+          "leads_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:8",
+        "source": "KE:11",
+        "target": "KE:9",
+        "relationship": [
+          "leads_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:9",
+        "source": "KE:11",
+        "target": "KE:10",
+        "relationship": [
+          "leads_to", "forms"
+        ]
+    }]
+}

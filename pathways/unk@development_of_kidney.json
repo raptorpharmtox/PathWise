@@ -1,0 +1,233 @@
+"aop_id: "unk@development_of_kidney_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+      "id": "KE:1",
+      "biological_entity_id": "mesoderm",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "biological_entity_id": "intermediate_mesoderm",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "paired_nephric_ducts",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "nephrotome",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "pronephros",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:6",
+        "biological_entity_id": "mesonephros",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   
+        "id": "KE:7",
+        "biological_entity_id": "metanephros",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:8",
+        "biological_entity_id": "mesonephric_duct",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:9",
+        "biological_entity_id": "ureteric_bud",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:10",
+        "biological_entity_id": "nephrogenic_cord",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:11",
+        "biological_entity_id": "kidney_pelvis",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:12",
+        "biological_entity_id": "metanephric_blastema",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:13",
+        "biological_entity_id": "renal_tubules",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:14",
+        "biological_entity_id": "collecting_ducts",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:15",
+        "biological_entity_id": "male_genital_system",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:16",
+        "biological_entity_id": "female_genital_system",
+        "mie": false,   
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:17",
+        "biological_entity_id": "metanephrogenic_blastema",
+        "mie": false,
+        "adverse_outcome": false
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:5",
+        "source": "KE:4",
+        "target": "KE:6",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:6",
+        "source": "KE:6",
+        "target": "KE:7",
+        "relationship": [
+          "develops_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:7",
+        "source": "KE:6",
+        "target": "KE:8",
+        "relationship": [
+          "gives_rise_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:8",
+        "source": "KE:8",
+        "target": "KE:9",
+        "relationship": [
+          "buds_from", "forms"
+        ]
+    },
+    {
+        "id": "KER:9",
+        "source": "KE:7",
+        "target": "KE:10",
+        "relationship": [
+          "gives_rise_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:10",
+        "source": "KE:9",
+        "target": "KE:12",
+        "relationship": [
+          "induces_formation_of", "forms"
+        ]
+    },
+    {
+        "id": "KER:11",
+        "source": "KE:9",
+        "target": "KE:11",
+        "relationship": [
+          "gives_rise_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:12",
+        "source": "KE:12",
+        "target": "KE:14",
+        "relationship": [
+          "differentiates_into", "forms"
+        ]
+    },
+    {
+        "id": "KER:13",
+        "source": "KE:6",
+        "target": "KE:16",
+        "relationship": [
+          "gives_rise_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:14",
+        "source": "KE:6",
+        "target": "KE:15",
+        "relationship": [
+          "gives_rise_to",  "forms"
+        ]
+    },
+    {
+        "id": "KER:15",
+        "source": "KE:7",
+        "target": "KE:17",  
+        "relationship": [
+          "gives_rise_to", "forms"
+        ]
+    },
+    {
+        "id": "KER:16",
+        "source": "KE:17",
+        "target": "KE:13",
+        "relationship": [
+          "differentiates_into", "forms"
+        ]
+    }
+  ]
+}
