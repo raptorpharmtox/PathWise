@@ -1,0 +1,146 @@
+{
+"aop_id": "unk@development_of_heart_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+      "id": "KE:1",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "biological_entity_id": "limb_bud_development",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "paddle_formed_limb_buds",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "hand_foot_plate",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "fingers_teeth",
+        "mie": false,       
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:6",
+        "biological_entity_id": "elbow_knee_joint",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   
+        "id": "KE:7",
+        "biological_entity_id": "elbows_point_dorsally_knees_point_ventrally",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:8",
+        "biological_entity_id": "arms",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:9",
+        "biological_entity_id": "legs",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:10",
+        "biological_entity_id": "hyaline_cartilage_in_form_of_later_bones",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:11",
+        "biological_entity_id": "cartilage_formation_stops_in_the_joint_regions",
+        "mie": false,
+        "adverse_outcome": false
+    }
+
+],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "circumflex_constriction", "forms"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+          "develops_into", "programmed_cell_death"
+        ]
+    },
+    {
+        "id": "KER:5",
+        "source": "KE:4",
+        "target": "KE:6",
+        "relationship": [
+          "secondary_constriction", "forms"
+        ]
+    },
+    {
+        "id": "KER:6",
+        "source": "KE:6",
+        "target": "KE:7",
+        "relationship": [
+          "90_degree_supination", "forms"
+        ]
+    },
+    {
+        "id": "KER:7",
+        "source": "KE:7",
+        "target": "KE:8",
+        "relationship": [
+          "lower_part_reversible", "forms"
+        ]
+    },
+    {
+        "id": "KER:8",
+        "source": "KE:7",
+        "target": "KE:9",
+        "relationship": [
+          "upper_part_irreversible", "forms"
+        ]
+    },
+    {
+        "id": "KER:9",
+        "source": "KE:10",
+        "target": "KE:11",
+        "relationship": [
+          "anterior_posterior_control", "dorso_ventral_control", "proximo_distal_control"
+        ]
+    }]
+}
