@@ -9,6 +9,7 @@
     },
     {
       "id": "KE:1",
+      "biological_entity_id": "parietal_mesoderm_ectodermal_surface",
       "mie": false,
       "adverse_outcome": false
     },
