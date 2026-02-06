@@ -68,7 +68,98 @@
         "biological_entity_id": "cartilage_formation_stops_in_the_joint_regions",
         "mie": false,
         "adverse_outcome": false
+    },
+    {   "id": "KE:12",
+        "biological_entity_id": "hox_genes",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:13",
+        "biological_entity_id": "retinoic_acid",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:14",
+        "biological_entity_id": "apical_epidermal_ridge",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:15",
+        "biological_entity_id": "wnt-7",
+        "mie": false,
+        "adverse_outcome": false
+
+    }, 
+    {   "id": "KE:16",
+        "biological_entity_id": "lmx-1",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:17",
+        "biological_entity_id": "engrailed-1",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {   "id": "KE:18",
+        "biological_entity_id": "fibroblast_growth_factor4_fgf4",
+        "mie": false,
+        "adverse_outcome": false
+
+    },
+    {   "id": "KE:19",
+        "biological_entity_id": "fibroblast_growth_factor8_fgf8",
+        "mie": false,
+        "adverse_outcome": false
+   }, 
+   {
+        "id": "KE:20",
+        "biological_entity_id": "fibroblast_growth_factor10_fgf10",
+        "mie": false,
+        "adverse_outcome": false
+   },
+    {
+          "id": "KE:21",
+          "biological_entity_id": "radical_fringe",
+          "mie": false,
+          "adverse_outcome": false
+    },
+    {
+          "id": "KE:22",
+          "biological_entity_id": "ser-2",
+          "mie": false,
+          "adverse_outcome": false
+    },
+    {     
+          "id": "KE:23",
+          "biological_entity_id": "sall4",
+          "mie": false,
+          "adverse_outcome": false
+    },
+    {
+        "id": "KE:24",
+        "biological_entity_id": "hoxb8",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:25",
+        "biological_entity_id": "tbx5",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:26",
+        "biological_entity_id": "tbx4",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:27",
+        "biological_entity_id": "pitx1",
+        "mie": false,
+        "adverse_outcome": false
     }
+   
 
 ],
   "key_event_relationships": [
@@ -142,6 +233,142 @@
         "target": "KE:11",
         "relationship": [
           "anterior_posterior_control", "dorso_ventral_control", "proximo_distal_control"
+        ]
+    },
+    {
+        "id": "KER:10",
+        "source": "KE:12",
+        "target": "KE:2",
+        "relationship": [
+          "regulates"
+        ]
+    },
+    {
+        "id": "KER:11",
+        "source": "KE:12",
+        "target": "KE:3",
+        "relationship": [
+          "regulates"
+        ]
+    },
+    {
+        "id": "KER:12",
+        "source": "KE:13",
+        "target": "KE:10",
+        "relationship": [
+          "regulates", "stimulates_expression_of_Shh", "anterior_posterior_control"
+        ]
+    },
+    {
+        "id": "KER:13",
+        "source": "KE:14",
+        "target": "KE:10",
+        "relationship": [
+          "regulates", "maintains_Shh_expression", "anterior_posterior_control"
+        ]
+    },
+    {
+        "id": "KER:14",
+        "source": "KE:15",
+        "target": "KE:10",
+        "relationship": [
+          "dorso_ventral_control", "induces_dorsal_characteristics"
+        ]
+    },
+    {
+        "id": "KER:15",
+        "source": "KE:16",
+        "target": "KE:10",
+        "relationship": [
+          "dorso_ventral_control", "specifies_dorsal_identity"
+        ]
+    },
+    {
+        "id": "KER:16",
+        "source": "KE:17",
+        "target": "KE:10",
+        "relationship": [
+          "dorso_ventral_control", "specifies_ventral_identity"
+        ]
+    },
+    {
+        "id": "KER:17",
+        "source": "KE:18",
+        "target": "KE:10",
+        "relationship": [
+          "proximo_distal_control", "maintains_aer"
+        ]
+    },
+    {
+        "id": "KER:18",
+        "source": "KE:19",
+        "target": "KE:10",
+        "relationship": [
+          "proximo_distal_control", "maintains_aer"
+        ]
+    },
+    {
+        "id": "KER:19",
+        "source": "KE:20",
+        "target": "KE:10",
+        "relationship": [
+          "proximo_distal_control", "induces_and_maintains_aer"
+        ]
+    },
+    {
+        "id": "KER:20",
+        "source": "KE:21",
+        "target": "KE:110",
+        "relationship": [
+          "proximo_distal_control", "establish_and_maintain_boundary_between_aer_and_underlying_mesoderm"
+        ]
+    },
+    {
+        "id": "KER:21",
+        "source": "KE:22",
+        "target": "KE:10",
+        "relationship": [
+          "proximo_distal_control", "define_position_of_aer"
+        ]
+    },
+    {
+        "id": "KER:22",
+        "source": "KE:23",
+        "target": "KE:11",
+        "relationship": [
+          "interprets_fgf_signals", "regulates_joint_formation"
+        ]
+    },
+    {
+        "id": "KER:23",
+        "source": "KE:24",
+        "target": "KE:8",
+        "relationship": [
+          "specifies_limb_identity", "regulates_limb_bud_development"
+        ]
+    },
+    {
+        "id": "KER:24",
+        "source": "KE:25",
+        "target": "KE:8",
+        "relationship": [
+          "specifies_forelimb_identity", "regulates_forelimb_development", "activates_fgf10_expression"
+        ]
+    },
+    {
+        "id": "KER:25",
+        "source": "KE:26",
+        "target": "KE:9",
+        "relationship": [
+          "specifies_hindlimb_identity", "regulates_hindlimb_development", "activates_fgf10_expression"
+        ]
+    },
+    {
+        "id": "KER:26",
+        "source": "KE:27",
+        "target": "KE:9",
+        "relationship": [
+          "specifies_hindlimb_identity", "regulates_hindlimb_development"
         ]
     }]
 }
