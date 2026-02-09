@@ -1499,7 +1499,93 @@
           "id": "excretory_system",
           "label": "excretory system",
           "definition": "The excretory system is the organ system responsible for removing waste products from the body."
+        },
+        {
+          "id": "retinoic_acid",
+          "label": "retinoic acid",
+          "definition": "Retinoic acid is a metabolite of vitamin A that plays a role in cell differentiation and development."
+        },
+        {
+          "id": "apical_epidermal_ridge_aer",
+          "label": "apical epidermal ridge",
+          "definition": "The apical epidermal ridge is a structure in plant development that is involved in the formation of the shoot apical meristem."
+        },
+        {
+          "id": "wnt-7a",
+          "label": "wnt-7a",
+          "definition": "wnt-7a is a member of the wnt family of signaling proteins that play a role in cell-to-cell communication and development."
+        },
+        {
+          "id": "fgf-8",
+          "label": "fgf-8",
+          "definition": "fgf-8 is a member of the fibroblast growth factor family that is involved in embryonic development and tissue repair."
+        },
+        {
+          "id": "fgf-10",
+          "label": "fgf-10",
+          "definition": "fgf-10 is a member of the fibroblast growth factor family that is involved in embryonic development and tissue repair."
+        },
+        {
+          "id": "shh",
+          "label": "shh",
+          "definition": "shh (sonic hedgehog) is a signaling molecule that plays a crucial role in embryonic development, including the patterning of limbs and organs."
+        },
+        {
+          "id": "fgf-4",
+          "label": "fgf-4",
+          "definition": "fgf-4 is a member of the fibroblast growth factor family that is involved in embryonic development and tissue repair."
+        },
+        {
+          "id": "lmx-1b",
+          "label": "lmx-1b",
+          "definition": "lmx-1b is a transcription factor that plays a role in the development of the nervous system and limb development."
+        },
+        {
+          "id": "engrailed-1",
+          "label": "engrailed-1",
+          "definition": "engrailed-1 is a homeobox-containing transcription factor that plays a crucial, instructive role in the ventral-dorsal patterning and innervation of the developing vertebrate limb, particularly the forelimb"
+        },
+        {
+          "id": "radical_fringe",
+          "label": "radical fringe",
+          "definition": "radical fringe is a signaling molecule (a glycosyltransferase) expressed in the dorsal ectoderm of the early limb bud that plays a critical role in positioning the apical ectodermal ridge (aer)."
+        },
+        {
+          "id": "ser-2",
+          "label": "ser-2",
+          "definition": "ser-2 is a G protein-coupled receptor that is involved in the regulation of various physiological processes, including neurotransmission and muscle contraction."
+        },
+        {
+          "id": "sall4",
+          "label": "sall4",
+          "definition": "sall4 is a transcription factor that plays a crucial role in embryonic development, including the regulation of stem cell pluripotency and differentiation."
+        },
+        {
+          "id": "pitx1",
+          "label": "pitx1",
+          "definition": "pitx1 is a transcription factor gene critical for vertebrate development, specifically directing the formation of hindlimbs, craniofacial structures, and the pituitary gland"
+        },
+        {
+          "id": "tbx4",
+          "label": "tbx4",
+          "definition": "tbx4 is a transcription factor that plays a crucial role in the development of the hindlimb and is involved in the regulation of gene expression during embryonic development."
+        },
+        {
+          "id": "tbx5",
+          "label": "tbx5",
+          "definition": "tbx5 is a transcription factor that plays a crucial role in the development of the forelimb and is involved in the regulation of gene expression during embryonic development."
+        },
+        {
+          "id": "hoxb8",
+          "label": "hoxb8",
+          "definition": "hoxb8 is a member of the Hox gene family that plays a crucial role in the development of limbs and other body structures during embryogenesis."
+        },
+        {
+          "id": "hox_genes",
+          "label": "hox genes",
+          "definition": "hox genes are a family of transcription factors that play crucial roles in the development of limbs and other body structures during embryogenesis."
         }
+
       ]
     }
   ]
