@@ -1584,8 +1584,151 @@
           "id": "hox_genes",
           "label": "hox genes",
           "definition": "hox genes are a family of transcription factors that play crucial roles in the development of limbs and other body structures during embryogenesis."
+        },
+        {
+          "id": "bile",
+          "label": "bile",
+          "definition": "Bile is a digestive fluid produced by the liver that aids in the digestion and absorption of fats in the small intestine."
+        },
+        {
+          "id": "bile_caniculi",
+          "label": "bile caniculi",
+          "definition": "Bile canaliculi are microscopic channels in the liver that transport bile from hepatocytes to the bile ducts."
+        },
+        {
+          "id": "bile_ducts",
+          "label": "bile ducts",
+          "definition": "Bile ducts are a series of tubes that carry bile from the liver and gallbladder to the small intestine."
+        },
+        {
+          "id": "bile_salts",
+          "label": "bile salts",
+          "definition": "Bile salts are a group of molecules derived from cholesterol that are produced in the liver and play a crucial role in the digestion and absorption of fats."
+        },
+        {
+          "id": "cardiac_mesoderm",
+          "label": "cardiac mesoderm",
+          "definition": "Cardiac mesoderm is a specific region of the mesoderm layer in the developing embryo that gives rise to the heart and associated structures."
+        },
+        {
+          "id": "central_vein",
+          "label": "central vein",
+          "definition": "The central vein is a blood vessel located in the center of a liver lobule that collects blood from the hepatic sinusoids and drains it into the hepatic veins."
+        },
+        {
+          "id": "cholangiocyte",
+          "label": "cholangiocyte",
+          "definition": "Cholangiocytes are epithelial cells that line the bile ducts in the liver and are involved in bile secretion and transport."
+        },
+        {
+          "id": "cystic_duct",
+          "label": "cystic duct",
+          "definition": "The cystic duct is a short tube that connects the gallbladder to the common bile duct, facilitating the flow of bile from the gallbladder to the small intestine."
+        },
+        {
+          "id": "extrahepatic_bile_duct(ehbd)",
+          "label": "extrahepatic bile duct (ehbd)",
+          "definition": "The extrahepatic bile duct is a tube that carries bile from the liver and gallbladder to the duodenum, the first part of the small intestine."
+        },
+        {
+          "id": "hepatocytes",
+          "label": "hepatocytes",
+          "definition": "Hepatocytes are the main functional cells of the liver, responsible for a wide range of metabolic, detoxification, and synthetic activities."
+        },
+        {
+          "id": "hepatic_ducts",
+          "label": "hepatic ducts",
+          "definition": "Hepatic ducts are a network of tubes that carry bile from the liver to the common bile duct."
+        },
+        {
+          "id": "hepatic_sinusoids",
+          "label": "hepatic sinusoids",
+          "definition": "Hepatic sinusoids are specialized blood vessels in the liver that allow for the exchange of substances between the blood and hepatocytes."
+        },
+        {
+          "id": "intrahepatic_bile_ducts(ihbd)",
+          "label": "intrahepatic bile ducts (ihbd)",
+          "definition": "Intrahepatic bile ducts are a network of small ducts within the liver that collect bile from hepatocytes and transport it to the hepatic ducts."
+        },
+        {
+          "id": "liver_buds",
+          "label": "liver buds",
+          "definition": "Liver buds are early structures in embryonic development that give rise to the liver and associated structures."
+        },
+        {
+          "id": "portal_vein",
+          "label": "portal vein",
+          "definition": "The portal vein is a major blood vessel that carries nutrient-rich blood from the gastrointestinal tract and spleen to the liver for processing."
+        },
+        {
+          "id": "right_hepatic_duct",
+          "label": "right hepatic duct",
+          "definition": "The right hepatic duct is a tube that carries bile from the right lobe of the liver to the common hepatic duct."
+        },
+        {
+          "id": "falciform_ligament",
+          "label": "falciform ligament",
+          "definition": "The falciform ligament is a thin, sickle-shaped fold of peritoneum that connects the liver to the anterior abdominal wall."
+        },
+        {
+          "id": "gall_bladder",
+          "label": "gall bladder",
+          "definition": "The gall bladder is a small, pear-shaped organ that stores and concentrates bile produced by the liver."
+        },
+        {
+          "id": "hepatocyte_cord",
+          "label": "hepatocyte cord",
+          "definition": "Hepatocyte cords are groups of hepatocytes arranged in linear arrays within the liver parenchyma."
+        },
+        {
+          "id": "kupffer_cells",
+          "label": "kupffer cells",
+          "definition": "Kupffer cells are specialized macrophages located in the liver that play a role in immune defense and the removal of pathogens and cellular debris."
+        },
+        {
+          "id": "lesser_omentum",
+          "label": "lesser omentum",
+          "definition": "The lesser omentum is a double layer of peritoneum that extends from the liver to the stomach and duodenum, containing blood vessels, lymphatics, and nerves."
+        },
+        {
+          "id": "liver_primordium",
+          "label": "liver primordium",
+          "definition": "The liver primordium is an early embryonic structure from which the liver develops."
+        },
+        {
+          "id": "lobule",
+          "label": "lobule",
+          "definition": "A lobule is a functional unit of the liver composed of hepatocytes arranged around a central vein."
+        },
+        {
+          "id":"portal_triads",
+          "label": "portal triads",
+          "definition": "Portal triads are structures in the liver that consist of a branch of the hepatic artery, a branch of the portal vein, and a bile duct."
+
+        },
+        {
+          "id": "septum_transversum",
+          "label": "septum transversum",
+          "definition": "The septum transversum is a structure in the developing embryo that contributes to the formation of the diaphragm."
+        },
+        {
+          "id": "septum_transversum_mesenchyme(stm)",
+          "label": "septum transversum mesenchyme(stm)",
+          "definition": "The septum transversum mesenchyme is the mesenchymal tissue that contributes to the formation of the septum transversum in embryonic development."
+        },
+        {
+          "id": "sinusoid",
+          "label": "sinusoid",
+          "definition": "A sinusoid is a specialized capillary-like blood vessel found in the liver that allows for the exchange of substances between blood and hepatocytes."
+        },
+        {
+          "id": "stellate_cells",
+          "label": "stellate cells",
+          "definition": "Stellate cells are specialized cells in the liver that store vitamin A and play a role in liver fibrosis."
         }
 
+    
+        
       ]
     }
   ]
