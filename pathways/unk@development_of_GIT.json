@@ -1,0 +1,16 @@
+{
+    "aop_id": "unk@development_of_GIT_human_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:1",
+        "biological_entity_id": "",
+        "mie": false,
+        "adverse_outcome": false 
+    }]
+}

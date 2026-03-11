@@ -1,0 +1,108 @@
+{
+"aop_id": "unk@development_of_liver_human_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:1",
+        "biological_entity_id": "mesendoderm",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:2",
+        "biological_entity_id": "endoderm",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "liver_bud",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "septum_transversum",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "kupffer_cells",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:6",
+        "biological_entity_id": "stromal_cells",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:7",
+        "biological_entity_id": "hematopoietic_cells",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:8",
+        "biological_entity_id": "bile_duct",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:9",
+        "biological_entity_id": "gall_bladder",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:10",
+        "biological_entity_id": "cystic_duct",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:11",
+        "biological_entity_id": "falciform_ligament",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:12",
+        "biological_entity_id": "lesser_omentum",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:13",
+        "biological_entity_id": "cholangiocytes",
+        "mie": false,
+        "adverse_outcome": false
+     }
+
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    }
+]
+}
