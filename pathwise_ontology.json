@@ -1586,380 +1586,145 @@
           "definition": "hox genes are a family of transcription factors that play crucial roles in the development of limbs and other body structures during embryogenesis."
         },
         {
-          "id": "acinus",
-          "label": "acinus",
-          "definition": "the fundamental secretory unit of the exocrine pancreas, consisting of acinar cells that surround a small central lumen"
+          "id": "bile",
+          "label": "bile",
+          "definition": "Bile is a digestive fluid produced by the liver that aids in the digestion and absorption of fats in the small intestine."
         },
         {
-          "id": "islet_of_langerhans",
-          "label": "islet of langerhans",
-          "definition": "a cluster of endocrine cells in the pancreas that produce hormones such as insulin and glucagon"
+          "id": "bile_caniculi",
+          "label": "bile caniculi",
+          "definition": "Bile canaliculi are microscopic channels in the liver that transport bile from hepatocytes to the bile ducts."
         },
         {
-          "id": "beta_cells",
-          "label": "beta cells",
-          "definition": "a type of cell in the islets of Langerhans that produces and secretes insulin"
+          "id": "bile_ducts",
+          "label": "bile ducts",
+          "definition": "Bile ducts are a series of tubes that carry bile from the liver and gallbladder to the small intestine."
         },
         {
-          "id": "alpha_cells",
-          "label": "alpha cells",
-          "definition": "a type of cell in the islets of Langerhans that produces and secretes glucagon"
+          "id": "bile_salts",
+          "label": "bile salts",
+          "definition": "Bile salts are a group of molecules derived from cholesterol that are produced in the liver and play a crucial role in the digestion and absorption of fats."
         },
         {
-          "id": "delta_cells",
-          "label": "delta cells",
-          "definition": "a type of cell in the islets of Langerhans that produces and secretes somatostatin"
+          "id": "cardiac_mesoderm",
+          "label": "cardiac mesoderm",
+          "definition": "Cardiac mesoderm is a specific region of the mesoderm layer in the developing embryo that gives rise to the heart and associated structures."
         },
         {
-          "id": "caput_pancreatis",
-          "label": "caput pancreatis",
-          "definition": "the head of the pancreas, which contains the islets of Langerhans"
+          "id": "central_vein",
+          "label": "central vein",
+          "definition": "The central vein is a blood vessel located in the center of a liver lobule that collects blood from the hepatic sinusoids and drains it into the hepatic veins."
         },
         {
-          "id": "corpus_pancreatis",
-          "label": "corpus pancreatis",
-          "definition": "the body of the pancreas, which contains acinar cells and is involved in digestive enzyme production"
+          "id": "cholangiocyte",
+          "label": "cholangiocyte",
+          "definition": "Cholangiocytes are epithelial cells that line the bile ducts in the liver and are involved in bile secretion and transport."
         },
         {
-          "id": "cauda_pancreatis",
-          "label": "cauda pancreatis",
-          "definition": "the tail of the pancreas, which contains acinar cells and is involved in digestive enzyme production"
+          "id": "cystic_duct",
+          "label": "cystic duct",
+          "definition": "The cystic duct is a short tube that connects the gallbladder to the common bile duct, facilitating the flow of bile from the gallbladder to the small intestine."
         },
         {
-          "id": "endoderm",
-          "label": "endoderm",
-          "definition": "the innermost germ layer of the embryo, which gives rise to the digestive tract and associated organs such as the liver and pancreas"
+          "id": "extrahepatic_bile_duct(ehbd)",
+          "label": "extrahepatic bile duct (ehbd)",
+          "definition": "The extrahepatic bile duct is a tube that carries bile from the liver and gallbladder to the duodenum, the first part of the small intestine."
         },
         {
-          "id": "mesoderm",
-          "label": "mesoderm",
-          "definition": "the middle germ layer of the embryo, which gives rise to muscles, bones, and the circulatory system"
+          "id": "hepatocytes",
+          "label": "hepatocytes",
+          "definition": "Hepatocytes are the main functional cells of the liver, responsible for a wide range of metabolic, detoxification, and synthetic activities."
         },
         {
-          "id": "ectoderm",
-          "label": "ectoderm",
-          "definition": "the outermost germ layer of the embryo, which gives rise to the skin and nervous system"
+          "id": "hepatic_ducts",
+          "label": "hepatic ducts",
+          "definition": "Hepatic ducts are a network of tubes that carry bile from the liver to the common bile duct."
         },
         {
-          "id": "extrahepatic_biliary_system",
-          "label": "extrahepatic biliary system",
-          "definition": "network of bile ducts that transport bile from the liver to the gallbladder and small intestine"
+          "id": "hepatic_sinusoids",
+          "label": "hepatic sinusoids",
+          "definition": "Hepatic sinusoids are specialized blood vessels in the liver that allow for the exchange of substances between the blood and hepatocytes."
         },
         {
-          "id": "foregut",
-          "label": "foregut",
-          "definition": "the anterior part of the developing digestive system, which gives rise to the mouth and esophagus"
+          "id": "intrahepatic_bile_ducts(ihbd)",
+          "label": "intrahepatic bile ducts (ihbd)",
+          "definition": "Intrahepatic bile ducts are a network of small ducts within the liver that collect bile from hepatocytes and transport it to the hepatic ducts."
         },
         {
-          "id": "midgut",
-          "label": "midgut",
-          "definition": "the middle part of the developing digestive system, which gives rise to the small intestine and part of the large intestine"
+          "id": "liver_buds",
+          "label": "liver buds",
+          "definition": "Liver buds are early structures in embryonic development that give rise to the liver and associated structures."
         },
         {
-          "id": "hindgut",
-          "label": "hindgut",
-          "definition": "the posterior part of the developing digestive system, which gives rise to the remaining part of the large intestine and rectum"
+          "id": "portal_vein",
+          "label": "portal vein",
+          "definition": "The portal vein is a major blood vessel that carries nutrient-rich blood from the gastrointestinal tract and spleen to the liver for processing."
         },
         {
-          "id": "innervation",
-          "label": "innervation",
-          "definition": "the network of nerves that innervates the gastrointestinal tract"
+          "id": "right_hepatic_duct",
+          "label": "right hepatic duct",
+          "definition": "The right hepatic duct is a tube that carries bile from the right lobe of the liver to the common hepatic duct."
         },
         {
-          "id": "mesentary",
-          "label": "mesentary",
-          "definition": "the fold of peritoneum that connects the intestines to the posterior abdominal wall and contains blood vessels and nerves"
+          "id": "falciform_ligament",
+          "label": "falciform ligament",
+          "definition": "The falciform ligament is a thin, sickle-shaped fold of peritoneum that connects the liver to the anterior abdominal wall."
         },
         {
-          "id": "multipotent_pancreatic_progenitor_cells",
-          "label": "multipotent pancreatic progenitor cells",
-          "definition": "stem cells in the developing pancreas that can give rise to all cell types found in the organ"
+          "id": "gall_bladder",
+          "label": "gall bladder",
+          "definition": "The gall bladder is a small, pear-shaped organ that stores and concentrates bile produced by the liver."
         },
         {
-          "id": "pancreatic_bud",
-          "label": "pancreatic bud",
-          "definition": "the early structure in the developing embryo that gives rise to the pancreas"
+          "id": "hepatocyte_cord",
+          "label": "hepatocyte cord",
+          "definition": "Hepatocyte cords are groups of hepatocytes arranged in linear arrays within the liver parenchyma."
         },
         {
-          "id": "dorsal_pancreatic_bud",
-          "label": "dorsal pancreatic bud",
-          "definition": "the part of the pancreatic bud that gives rise to the body and tail of the pancreas"
+          "id": "kupffer_cells",
+          "label": "kupffer cells",
+          "definition": "Kupffer cells are specialized macrophages located in the liver that play a role in immune defense and the removal of pathogens and cellular debris."
         },
         {
-          "id": "ventral_pancreatic_bud",
-          "label": "ventral pancreatic bud",
-          "definition": "the part of the pancreatic bud that gives rise to the head of the pancreas"
+          "id": "lesser_omentum",
+          "label": "lesser omentum",
+          "definition": "The lesser omentum is a double layer of peritoneum that extends from the liver to the stomach and duodenum, containing blood vessels, lymphatics, and nerves."
         },
         {
-          "id": "pancreatic_ducts",
-          "label": "pancreatic ducts",
-          "definition": "the network of ducts in the pancreas that transport digestive enzymes from acinar cells to the small intestine"
+          "id": "liver_primordium",
+          "label": "liver primordium",
+          "definition": "The liver primordium is an early embryonic structure from which the liver develops."
         },
         {
-          "id": "neural_crest_cells",
-          "label": "neural crest cells",
-          "definition": "cells that migrate from the neural tube during embryonic development and give rise to various structures including parts of the peripheral nervous system and facial bones"
+          "id": "lobule",
+          "label": "lobule",
+          "definition": "A lobule is a functional unit of the liver composed of hepatocytes arranged around a central vein."
         },
         {
-          "id": "pancreas_anulare",
-          "label": "pancreas anulare",
-          "definition": "a congenital condition where the pancreas forms a ring around the duodenum, which can lead to obstruction and digestive issues"
-        },
-        {
-          "id": "processus_unicinatus",
-          "label": "processus unicinatus",
-          "definition": "a developmental structure in the pancreas that can persist and lead to the formation of an accessory pancreatic duct, which may cause clinical symptoms such as pancreatitis or duodenal obstruction"
-        },
-        {
-          "id": "annular_pancreas",
-          "label": "annular pancreas",
-          "definition": "a congenital condition where the pancreas forms a ring around the duodenum, which can lead to obstruction and digestive issues"
-        },
-        {
-          "id": "accessory_pancreatic_duct",
-          "label": "accessory pancreatic duct",
-          "definition": "a developmental structure in the pancreas that can persist and lead to the formation of an accessory pancreatic duct, which may cause clinical symptoms such as pancreatitis or duodenal obstruction"
-        },
-        {
-          "id": "arx",
-          "label": "arx",
-          "definition": "arx is a critical transcription factor that acts as a master regulator of pancreatic alpha-cell specification and maintenance."
-        },
-        {
-          "id": "bmp",
-          "label": "bmp",
-          "definition": "bmp is a signaling molecule that plays a crucial role in regulating the differentiation of progenitor cells into pancreatic tissue rather than liver tissue during embryonic development."
-        },
-        {
-          "id": "fibroblast_growth_factor_fgf",
-          "label": "fibroblast growth factor fgf",
-          "definition": "fgf are critical signaling molecules regulating pancreatic development, including cell proliferation, differentiation, and tissue morphogenesis "
-        },
-        {
-          "id": "fgf-2",
-          "label": "fgf-2",
-          "definition": "fgf2 plays a crucial role in pancreatic function, acting primarily as a mitogenic (proliferation-inducing) and morphogenic factor during embryonic development" 
-        },
-        {
-          "id": "fgf_receptor_2b_fgfr2b",
-          "label": "fgf receptor 2b fgfr2b",
-          "definition": "fgfr2b plays a critical role in pancreatic development, specifically acting as the receptor in the pancreatic epithelium that receives signals from the surrounding mesenchyme to promote growth, branching morphogenesis, and the maintenance of pancreatic progenitor cell identity"
-        },
-        {
-          "id": "forkhead_box_forkhead_transcription_factor_foxa2",
-          "label": "forkhead box forkhead transcription factor foxa2",
-          "definition": "foxa2 is a critical pioneer transcription factor that regulates pancreas development, cell fate specification, and mature islet function"
-        },
-        {
-          "id": "forkhead_box_forkhead_transcription_factor_foxa1",
-          "label": "forkhead box forkhead transcription factor foxa1",
-          "definition": "foxa1 is a critical pioneering transcription factor in the pancreas, acting as a molecular switch that opens condensed chromatin to enable the binding of other transcription factors"
-        },
-        {
-          "id": "gata4",
-          "label": "gata4",
-          "definition": "gata4 is a zinc-finger transcription factor that plays a critical role in the early development, differentiation, and maintenance of the pancreas, functioning as a key regulator of the endodermal lineage" 
-        },
-        {
-          "id": "gata6",
-          "label": "gata6",
-          "definition": "gata6 is a zinc-finger transcription factor that acts as a critical regulator of pancreatic development, exocrine homeostasis, and endocrine function" 
-        },
-        {
-          "id": "hhex",
-          "label": "hhex",
-          "definition": "hhex is a crucial transcription factor that acts as a gatekeeper in controlling the specification of the ventral pancreas during embryonic development and maintains the identity of delta cells in the adult endocrine pancreas"
-        },
-        {
-          "id": "hes1",
-          "label": "hes1",
-          "definition": "hes1 is a basic helix-loop-helix (bHLH) transcription factor activated by Notch signaling that acts as a crucial regulator of pancreas development, cell fate, and regeneration"
-        },
-        {
-          "id": "nkx2-2",
-          "label": "nkx2-2",
-          "definition": "nkx2-2  is a critical homeodomain transcription factor essential for the development, differentiation, and maintenance of pancreatic islet cells, particularly insulin-producing beta-cells and glucagon-producing alpha-cells" 
-        },
-        {
-          "id": "nkx6-1",
-          "label": "nkx6-1",
-          "definition": "nkx6-1 is a critical homeodomain transcription factor required for the specification, development, and maturation of pancreatic beta-cells"
-        },
-        {
-          "id": "ghrelin",
-          "label": "ghrelin",
-          "definition": "ghrelin is a hormone that functions to regulate glucose metabolism and pancreas development" 
-        },
-        {
-          "id": "glis_family_zinc_finger_protein_glis3",
-          "label": "glis family zinc finger protein glis3",
-          "definition": "glis3 is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the differentiation of endocrine cells and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "glial_cell_line_derived_neurotrophic_factor_gdnf",
-          "label": "glial cell line derived neurotrophic factor gdnf",
-          "definition": "gdnf is a growth factor that  functions as a critical regulator of pancreatic development, beta cell maturation, and function" 
-        },
-        {
-          "id": "glucagon",
-          "label": "glucagon",
-          "definition": "glucagon is a peptide hormone produced by the alpha cells in the pancreatic islets of Langerhans that functions as a crucial glucose-mobilizing agent to prevent low blood sugar (hypoglycemia)"
-        },
-        {
-          "id": "insulin",
-          "label": "insulin",
-          "definition": "insulin is a vital hormone produced by beta cells in the pancreatic islets of Langerhans that regulates blood sugar (glucose) levels and metabolism"
-        },
-        { 
-          "id": "somatostatin",
-          "label": "somatostatin",
-          "definition": "somatostatin -cells (delta cells) that acts as a potent local, paracrine inhibitor within the islets of Langerhans. It functions to regulate blood sugar and digestion by inhibiting the release of insulin and glucagon, as well as reducing exocrine pancreatic enzymes"
-        },
-        {
-          "id": "pancreatic_polypeptide",
-          "label": "pancreatic polypeptide",
-          "definition": "pancreatic polypeptide is a 36-amino-acid peptide hormone secreted by F cells (or PP cells) in the pancreatic islets, primarily functioning to regulate digestive processes and appetite"
-        },
-        {
-          "id": "hematopoietically_expressed_homeobox_hexh",
-          "label": "hematopoietically expressed homeobox hexh",
-          "definition": "hexh is a homeobox transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of cell fate decisions and the maintenance of pancreatic progenitor cells during embryogenesis."
-        },
-        {
-          "id": "neurogenin_3_ngn3",
-          "label": "neurogenin 3 ngn3",
-          "definition": "ngn3 is a basic helix-loop-helix (bHLH) transcription factor that serves as a critical regulator of pancreatic endocrine cell development, acting as a master switch for the differentiation of progenitor cells into the various hormone-producing cell types within the islets of Langerhans."
-        },
-        {
-          "id": "pdx1",
-          "label": "pdx1",
-          "definition": "pdx1 is a homeodomain transcription factor that plays a crucial role in pancreatic development, beta-cell differentiation, and the maintenance of mature beta-cell function."
-        },
-        {
-          "id": "pax6",
-          "label": "pax6",
-          "definition": "pax6 is a paired box transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "pax4",
-          "label": "pax4",
-          "definition": "pax4 is a paired box transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id":"hepatocyte_nuclear_factor_6_hnf6",
-          "label": "hepatocyte nuclear factor 6 hnf6",
-          "definition": "hnf6 is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of gene expression during embryonic development and the maintenance of pancreatic function in adulthood."
-        },
-        {
-          "id": "hepatocyte_nuclear_factor_1_alpha_hnf1a",
-          "label": "hepatocyte nuclear factor 1 alpha hnf1a",
-          "definition": "hnf1a is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of gene expression during embryonic development and the maintenance of pancreatic function in adulthood."
-        },
-        {
-          "id": "hepatocyte_nuclear_factor_1_beta_hnf1b",
-          "label": "hepatocyte nuclear factor 1 beta hnf1b",
-          "definition": "hnf1b is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of gene expression during embryonic development and the maintenance of pancreatic function in adulthood."
-        },
-        {
-          "id":"innervation",
-          "label": "innervation",
-          "definition": "the network of nerves that innervates the gastrointestinal tract"
-        },
-        {
-          "id":"insm1",
-          "label": "insm1",
-          "definition": "insm1 is a zinc-finger transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "isl1",
-          "label": "isl1",
-          "definition": "isl1 is a LIM-homeodomain transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "mafa",
-          "label": "mafa",
-          "definition": "mafa is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of beta-cell function and insulin gene expression."
-        },
-        {
-          "id": "mafb",
-          "label": "mafb",
-          "definition": "mafb is a transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of alpha-cell function and glucagon gene expression."
-        },
-        {
-          "id": "neurod1",
-          "label": "neurod1",
-          "definition": "neurod1 is a basic helix-loop-helix (bHLH) transcription factor that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "neurogenin_3_ngn3",
-          "label": "neurogenin 3 ngn3",
-          "definition": "ngn3 is a basic helix-loop-helix (bHLH) transcription factor that serves as a critical regulator of pancreatic endocrine cell development, acting as a master switch for the differentiation of progenitor cells into the various hormone-producing cell types within the islets of Langerhans."
-        },
-        {
-          "id": "notch",
-          "label": "notch",
-          "definition": "notch is a signaling pathway that plays a crucial role in the development of the pancreas, particularly in the regulation of endocrine cell differentiation and the formation of the islets of Langerhans."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young1_mody1",
-          "label": "maturity onset diabetes of the young 1 mody1",
-          "definition": "mody1 is a form of diabetes caused by mutations in the hepatocyte nuclear factor 4 alpha (hnf4a) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id":"maturity_onset_diabetes_of_the_young2_mody3",
-          "label": "maturity onset diabetes of the young 2 mody3",
-          "definition": "mody3 is a form of diabetes caused by mutations in the hepatocyte nuclear factor 4 alpha (hnf4a) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young3_mody3",
-          "label": "maturity onset diabetes of the young 3 mody3",
-          "definition": "mody3 is a form of diabetes caused by mutations in the hepatocyte nuclear factor 1 alpha (hnf1a) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young4_mody4",
-          "label": "maturity onset diabetes of the young 4 mody4",
-          "definition": "mody4 is a form of diabetes caused by mutations in the pancreatic and duodenal homeobox 1 (pdx1) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young5_mody5",
-          "label": "maturity onset diabetes of the young 5 mody5",
-          "definition": "mody5 is a form of diabetes caused by mutations in the hepatocyte nuclear factor 1 beta (hnf1b) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young6_mody6",
-          "label": "maturity onset diabetes of the young 6 mody6",
-          "definition": "mody6 is a form of diabetes caused by mutations in the neurogenin 3 (ngn3) gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "maturity_onset_diabetes_of_the_young9_mody9",
-          "label": "maturity onset diabetes of the young 9 mody9",
-          "definition": "mody9 is a form of diabetes caused by mutations in the insulin gene, which plays a crucial role in pancreatic development and function."
-        },
-        {
-          "id": "motor_neuron_and_pancreas_homeobox_1_mnx1",
-          "label": "motor neuron and pancreas homeobox 1 mnx1",
-          "definition": "mnx1 is a homeobox transcription factor that plays a role in the development of motor neurons and the pancreas."
-        },
-        {
-          "id": "myt1",
-          "label": "myt1",
-          "definition": "myt1 is a transcription factor that plays a role in the development of the pancreas."
-        },
-        {
-          "id": "nkx_homedomain_factors",
-          "label": "nkx homedomain factors",
-          "definition": ""
-        },
-        {
-          "id": "primordia",
-          "label": "primordia",
-          "definition": "primordia are the initial developmental structures from which organs and tissues develop."
-        },
-        {
-          "id": "re",
-          "label": "progenitor cells",
-          "definition": "progenitor cells are early descendants of stem cells that can differentiate to form one or more kinds of cells, but cannot divide and reproduce indefinitely like stem cells."
+          "id":"portal_triads",
+          "label": "portal triads",
+          "definition": "Portal triads are structures in the liver that consist of a branch of the hepatic artery, a branch of the portal vein, and a bile duct."
 
+        },
+        {
+          "id": "septum_transversum",
+          "label": "septum transversum",
+          "definition": "The septum transversum is a structure in the developing embryo that contributes to the formation of the diaphragm."
+        },
+        {
+          "id": "septum_transversum_mesenchyme(stm)",
+          "label": "septum transversum mesenchyme(stm)",
+          "definition": "The septum transversum mesenchyme is the mesenchymal tissue that contributes to the formation of the septum transversum in embryonic development."
+        },
+        {
+          "id": "sinusoid",
+          "label": "sinusoid",
+          "definition": "A sinusoid is a specialized capillary-like blood vessel found in the liver that allows for the exchange of substances between blood and hepatocytes."
+        },
+        {
+          "id": "stellate_cells",
+          "label": "stellate cells",
+          "definition": "Stellate cells are specialized cells in the liver that store vitamin A and play a role in liver fibrosis."
         }
       
 
@@ -1969,6 +1734,8 @@
 
   
 
+    
+        
       ]
     }
   ]
