@@ -1,0 +1,67 @@
+{
+    "aop_id": "unk@development_of_pancreas_human_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "unknown",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:1",
+        "biological_entity_id": "endoderm",
+        "mie": false,
+        "adverse_outcome": false 
+    },
+    {
+        "id": "KE:2",
+        "biological_entity_id": "dorsal_pancreatic_bud",
+        "mie": false,
+        "adverse_outcome": false 
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "ventral_pancreatic_bud",
+        "mie": false,
+        "adverse_outcome": false 
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "fusion_of_ventral_and_dorsal_pancreatic_buds",
+        "mie": false,
+        "adverse_outcome": false 
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "differentiation_of_pancreatic_progenitor_cells",
+        "mie": false,
+        "adverse_outcome": false
+    }
+    ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": ["KE:2", "KE:3"],
+      "relationship": [
+        "develops_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": ["KE:2", "KE:3"],
+      "target": "KE:4",
+      "relationship": [
+        "leads_to" 
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:4",
+      "target": "KE:5",
+      "relationship": [
+        "develops_into" 
+      ]
+    }
+]
+}
