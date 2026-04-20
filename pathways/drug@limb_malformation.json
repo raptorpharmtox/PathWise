@@ -1,0 +1,83 @@
+{ "aop_id": "drug@limb_malformation_human_rabbit_primate_1",
+  "key_events": [
+    {
+        "id": "KE:0",
+        "biological_entity_id": "cyp3a",
+        "mie": true,
+        "adverse_outcome": false
+    },
+    {
+      "id": "KE:1",
+      "biological_entity_id": "parent_drug",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "biological_entity_id": "parent_drug",
+      "mie": false,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "CRBD",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    
+    {
+        "id": "KE:4",
+        "biological_entity_id": "decreased_sall4_function",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "limb_malformation",
+        "mie": false,
+        "adverse_outcome": true
+    }
+],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:0",
+      "relationship": [
+        "metabolized_by", "binds_to"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:0",
+      "target": "KE:2",
+      "relationship": [
+        "metabolizes_into", "forms"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "binds_to" 
+      ]
+    },
+    {
+      "id": "KER:4",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "ubiquitination", "results_in"
+      ]
+    },
+    {
+      "id": "KER:5",
+      "source": "KE:4",
+      "target": "KE:5",
+      "relationship": [
+        "leads_to", "results_in"
+      ]
+     }
+]
+}
