@@ -1,5 +1,5 @@
 {
-  "aop_id": "fluid_buildup_in_the_lungs@death_1",
+  "aop_id": "fluid_buildup_in_the_lungs@death",
   "versions": [
     {
       "version": "1.0.0",
@@ -12,6 +12,18 @@
         }
       ],
       "changelog": "Initial release"
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-04-27",
+      "doi": "10.5281/zenodo.19819978",
+      "authors": [
+        { "name": "Lyle D. Burgoon", 
+        "orcid": "0000-0003-4977-5352", 
+        "role": "creator" 
+        }
+      ],
+      "changelog": "Minor update -- fixed a typo in the aop_id"
     }
   ],
   "concept_doi": "10.5281/zenodo.19665965",
