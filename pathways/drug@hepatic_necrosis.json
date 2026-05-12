@@ -1,4 +1,4 @@
-{"aop_id": "drug@glucuronidation_human_1",
+{"aop_id": "drug@hepatic_necrosis_felid_1",
 "key_events": [
         {
             "id": "KE:0",
@@ -20,16 +20,29 @@
         },
         {
             "id": "KE:3",
-            "biological_entity_id": "glucuronidation_via_ugt1a6",
+            "biological_entity_id": "pseudogenized_form_of_ugt1a6",
             "mie": false,
             "adverse_outcome": false
         },
         {
             "id": "KE:4",
-            "biological_entity_id": "renal_clearance",
+            "biological_entity_id": "gsh_depletion",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:5",
+            "biological_entity_id": "hepatic_necrosis",
+            "mie": false,
+            "adverse_outcome": true
+        },
+        {
+            "id": "KE:6",
+            "biological_entity_id": "methemoglobinemia",
             "mie": false,
             "adverse_outcome": true
         }
+    
 
     ],
     "key_event_relationships":[
@@ -49,13 +62,26 @@
             "id": "KER:3",
             "source":"KE:2",
             "target":"KE:3",
-            "relationship": ["intercepted_by", "detoxified_by"]
+            "relationship": ["binds_to"]
         },
         {
             "id": "KER:4",
             "source":"KE:3",
             "target":"KE:4",
-            "relationship": ["leads_to", "success_results_in"]
+            "relationship": ["leads_to", "results_in"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:4",
+            "target":"KE:5",
+            "relationship": ["leads_to", "results_in"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:4",
+            "target":"KE:6",
+            "relationship": ["leads_to", "results_in"]
         }
+        
     ]
 }
