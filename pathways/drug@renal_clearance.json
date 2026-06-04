@@ -1,0 +1,61 @@
+{"aop_id": "drug@glucuronidation_human_1",
+"key_events": [
+        {
+            "id": "KE:0",
+            "biological_entity_id": "cyp2e1",
+            "mie": true,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:1",
+            "biological_entity_id": "parent_drug",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:2",
+            "biological_entity_id": "napq1",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:3",
+            "biological_entity_id": "glucuronidation_via_ugt1a6",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:4",
+            "biological_entity_id": "renal_clearance",
+            "mie": false,
+            "adverse_outcome": true
+        }
+
+    ],
+    "key_event_relationships":[
+        {
+            "id": "KER:1",
+            "source":"KE:1",
+            "target":"KE:0",
+            "relationship": ["metabolized_by"]
+        },
+        {
+            "id": "KER:2",
+            "source":"KE:0",
+            "target":"KE:2",
+            "relationship": ["oxidizes_to", "forms"]
+        },
+        {
+            "id": "KER:3",
+            "source":"KE:2",
+            "target":"KE:3",
+            "relationship": ["intercepted_by", "detoxified_by"]
+        },
+        {
+            "id": "KER:4",
+            "source":"KE:3",
+            "target":"KE:4",
+            "relationship": ["leads_to", "success_results_in"]
+        }
+    ]
+}
