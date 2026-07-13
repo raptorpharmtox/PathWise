@@ -1,0 +1,85 @@
+{"aop_id": "drug@cleft_palate_1",
+"key_events": [
+        {
+            "id": "KE:0",
+            "biological_entity_id": "tubulin_binding_(colchicine,_vincristine)",
+            "mie": true,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:1",
+            "biological_entity_id": "cytoskeletal_changes_(impaired_ecm_remodeling)",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:2",
+            "biological_entity_id": "shelf_elevation_fails_(shelves_remain_vertical)",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:3",
+            "biological_entity_id": "irf6/foxe1/bmp4_variants_(reduced_epithelial_fusion_competence)",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:4",
+            "biological_entity_id": "midline_fusion_fails_(no_shelf_contact_or_fusion)",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:5",
+            "biological_entity_id": "isolated_cleft_palate_(no_other_anomalies)",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:6",
+            "biological_entity_id": "syndromic_cleft_palate_(with_craniofacial_syndrome)",
+            "mie": false,
+            "adverse_outcome": true
+        }
+
+    ],
+    "key_event_relationships":[
+        {
+            "id": "KER:1",
+            "source":"KE:0",
+            "target":"KE:1",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:2",
+            "source":"KE:1",
+            "target":"KE:2",
+            "relationship": ["leads_to"]
+        },
+        {
+            "id": "KER:3",
+            "source":"KE:2",
+            "target":"KE:4",
+            "relationship": ["results_in"]
+        },
+        {
+            "id": "KER:4",
+            "source":"KE:3",
+            "target":"KE:4",
+            "relationship": ["leads_to"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:4",
+            "target":"KE:5",
+            "relationship": ["leads_to", "results_in"]
+        },
+        {
+            "id": "KER:6",
+            "source":"KE:4",
+            "target":"KE:6",
+            "relationship": ["leads_to", "results_in"]
+        }
+    ]
+}
