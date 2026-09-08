@@ -1,6 +1,7 @@
 ---
 name: pathway-extraction
-version: 1.1.0
+version: 1.1.1
+repository: git@github.com:lovechar1/pathwise-pathway-extraction.git
 description: Extract a biological pathway (molecular initiating events, key events, key event relationships, adverse outcomes) from a batch of PDF articles on one topic, using ONLY what each article's own text and figures state — never AOP-Wiki, never background/training knowledge to fill gaps or resolve ambiguity. Aligns every term against a shared reference ontology JSON (reuse existing IDs, flag uncertain matches, mint new terms with HGNC/PubChem/SNOMED-style preference), then merges across all articles into a tallied pathway showing how many articles support each key event and relationship. Use this whenever the user provides a folder or list of PDFs plus a topic and asks to "extract the pathway," "build an AOP from these papers," "align these against my ontology," or otherwise wants a strictly source-grounded key-event/key-event-relationship structure out of literature — even if they don't use the words "AOP" or "ontology." Do NOT use this for weight-of-evidence grading, dose/species/exposure data extraction, narrative literature summaries, or anything that should reference the AOP-Wiki database or general toxicology knowledge — those belong to a different skill.
 compatibility: Needs a host that can read PDFs page-by-page (Read tool with page ranges) and write files. Designed for Claude Code / Claude Code-like sessions where the whole batch runs in one continuous conversation.
 ---
