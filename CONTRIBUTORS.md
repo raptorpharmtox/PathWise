@@ -1,18 +1,18 @@
 <<<<<<< HEAD
 
-## How to contribute to AOPCommons
+## How to contribute to PathWise
 
 =======
 By submitting content to this repository, you agree to license your contributions under the [Creative Commons Attribution 4.0 License](https://creativecommons.org/licenses/by/4.0/).
 
-## How to contribute to AOPCommons
+## How to contribute to PathWise
 
 #### **Add your information as a contributor** ####
 
 * Make sure to add your information as a contributor to whatever it is you make changes/edits to, or any files you add.
 * See any of the .json files for an example.
 
->>>>>>> f9696273b5a4122bba5b33d54d0c374f8f8f31ec
+
 #### **Did you find a bug?**
 
 * **Ensure the bug was not already reported** by searching on GitHub under Issues.
@@ -27,20 +27,18 @@ By submitting content to this repository, you agree to license your contribution
 
 #### **Do you intend to add a new AOP or change an existing one?**
 
-* Suggest your change in the Issues section and then use our Google Colab template to build a new AOP.
+* Suggest your change in the Issues section and make your changes. Once it's ready for review, create a pull request.
 
-#### **Do you have questions about the AOPs or AOPCommons?**
+#### **Do you have questions about the AOPs, Pathways or PathWise?**
 
-* Join our Discord community (fill this in later).
+* Join our Discussion here at GitHub
 
-
-
-AOPCommons is an open source project that needs your help! Please volunteer to make our AOPs better and easily accessible to everyone!
+PathWise is an open source project that needs your help! Please volunteer to make our AOPs better and easily accessible to everyone!
 
 Thanks again for your help and support of AOPCommons!
 
 <<<<<<< HEAD
--- The AOPCommons Team and our sponsor, Raptor Pharm & Tox, Ltd.
+-- The PathWise Team and our sponsor, Science for Healthy Families
 =======
--- The AOPCommons Team and our sponsor, Raptor Pharm & Tox, Ltd.
->>>>>>> f9696273b5a4122bba5b33d54d0c374f8f8f31ec
+-- The PathWise Team and our sponsor, Science for Healthy Families
+
