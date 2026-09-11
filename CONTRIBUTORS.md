@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 ## How to contribute to PathWise
 
 =======
@@ -33,12 +31,9 @@ By submitting content to this repository, you agree to license your contribution
 
 * Join our Discussion here at GitHub
 
-PathWise is an open source project that needs your help! Please volunteer to make our AOPs better and easily accessible to everyone!
+PathWise is an open source project that needs your help! Please volunteer to make our pathways better and easily accessible to everyone!
 
-Thanks again for your help and support of AOPCommons!
+Thanks again for your help and support of PathWise!
 
-<<<<<<< HEAD
--- The PathWise Team and our sponsor, Science for Healthy Families
-=======
 -- The PathWise Team and our sponsor, Science for Healthy Families
 
