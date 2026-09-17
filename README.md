@@ -10,6 +10,7 @@ It never fills gaps from general biology knowledge and never consults the AOP-Wi
 - **A topic description** (optional, recommended) — 1-3 sentences narrowing the topic's scope (direction of causation, organ, exposure type). Don't describe pathway steps here — just the boundary of what counts as in-scope.
 - **A folder of PDFs** — every article you want processed, in one folder, containing nothing else. Or an explicit ordered list of file paths.
 - **An ontology file** (optional) — a `pathwise_ontology.json` reference dictionary of terms to reuse across runs. If you don't have one yet, the skill will create one; if you already have one from a previous run, point it there so terminology stays consistent across projects.
+- **Extraction mode** — Simplified (just the core MIE→KE→AO chain, evidence, citations, and the tally) or Full (also captures species-specific/conditional branching, confounders, developmental-stage windows, and initiating-event class, whenever an article states them). The skill will ask which you want before starting.
 
 You don't need to prepare any of this in advance in a special format — just tell Claude Code what you want extracted and where the PDFs live, and the skill will ask for whatever it's missing.
 
@@ -30,19 +31,21 @@ Everything is written to an `output/` folder:
 
 | File | What it is |
 |---|---|
-| `<article_slug>_pathway.json` | One per article — that article's key events, relationships, and just the sources it actually cites as evidence. |
+| `<article_slug>_pathway.json` | One per article — that article's key events and relationships (each one tagged with exactly which citation(s) back it), plus just the sources it actually cites as evidence. |
 | `run_log.md` | One line per article: processed / excluded as off-topic / failed to read, plus pages read. Check here first if an article seems to be missing. |
 | `new_terms.json` | Every new ontology term minted this run, flagged for your review — nothing here is merged into your ontology automatically. |
-| `merged_tally.json` | **The main deliverable.** Every key event and relationship merged across all articles, with a count of how many articles support it, plus a `single_source_flags` list calling out anything backed by only one article. |
+| `merged_tally.json` | **The main deliverable.** Every key event and relationship merged across all articles, with an `article_count` (how many articles) *and* a `distinct_sources_cited` count (how many distinct primary references those articles actually cite), plus `single_source_flags` (only one article) and `single_citation_flags` (several articles, but all citing the same one source) calling out the weaker-evidenced spots. In Full mode, also carries species/circumstance branching, confounders, developmental windows, and initiating-event class wherever an article stated one. |
 | `wording_suggestions.json` | Only appears if you separately ask for the optional AOP-Wiki wording pass afterward. |
 
 Claude will report back just the counts (articles processed, key events/relationships found, new terms minted, flags raised) — it won't interpret the biology for you. That review is on you.
 
 ## Scope
 
-**In scope:** pathway extraction, per-article bibliography, terminology alignment, and a simple support count across articles.
+**Always in scope:** pathway extraction, per-article bibliography with per-key-event/relationship citation linking, terminology alignment, and a support tally across articles (both an article count and a distinct-primary-source count).
 
-**Out of scope by design:** weight-of-evidence grading, dose/species/exposure data, narrative summaries, and any judgment call about whether a disagreement between articles is real biology or an extraction miss (these get flagged, not resolved). If you need any of that, ask for it explicitly — the skill won't add it on its own.
+**In scope for Full mode only:** species-specific/conditional branching (including minor pathways that only matter "under specific circumstances"), confounders (sex, genetic polymorphisms, background rates, species physiology), developmental/temporal windows, and initiating-event class (genetic/chemical/other) — captured only when an article's own text states them, tagged with a `layers` field so a future visualizer could show/hide them independently of the core chain.
+
+**Out of scope by design regardless of mode:** weight-of-evidence grading, dose/exposure study parameters, narrative summaries, and any judgment call about whether a disagreement between articles is real biology or an extraction miss (these get flagged, not resolved). If you need any of that, ask for it explicitly — the skill won't add it on its own.
 
 ## Full details
 

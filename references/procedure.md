@@ -2,13 +2,28 @@
 
 This is the specification SKILL.md points to. Follow it precisely — the discipline here (verbatim evidence, causal source/target ordering, the reuse-or-mint terminology process) is what makes the merged output trustworthy across articles written by different authors in different styles.
 
-## v1 scope
+## Scope
 
-In scope: pathway extraction (key events, key event relationships, MIE/AO flags), a flat bibliography per article, terminology alignment across the batch, and a final count of how many articles support each key event and relationship.
+Always in scope, in both extraction modes: pathway extraction (key events, key event relationships, MIE/AO flags), a flat bibliography per article, terminology alignment across the batch, per-KE/KER citation linking (Step 3C), and a final tally of how many articles *and* how many distinct cited sources support each key event and relationship.
 
-Out of scope, by deliberate design choice, not because anything is unknown: species-specific parameters, confounders, developmental-timing windows, and initiating-event-class (GIE/CIE/OIE) annotations. Also out of scope: review-type/certainty-language tagging, any weight-of-evidence measure beyond a simple count, and any automated judgment about whether a disagreement between articles is real biology or an extraction error — flag it, don't resolve it. Don't add any of this on your own initiative even if it looks easy; ask the user first if they want scope expanded.
+Always out of scope, by deliberate design choice, not because anything is unknown: review-type/certainty-language tagging, any weight-of-evidence measure beyond a simple count, and any automated judgment about whether a disagreement between articles is real biology or an extraction error — flag it, don't resolve it. Don't add any of this on your own initiative even if it looks easy; ask the user first if they want scope expanded.
 
-If a future run needs these back, the field names are already settled: `species_annotation`, `molecular_basis` on key events; `gate_type`, `active_in`, `absent_in`, `note` on relationships.
+### Extraction mode: Simplified vs. Full
+
+Ask which mode the user wants as part of Required Inputs, before Step 1 — it changes what Step 2 looks for while reading, not just what gets shown afterward.
+
+**Simplified** — extract only the core chain: MIEs, KEs, KERs, AO flags, evidence quotes, citation links, and the tally. Don't go looking for species/circumstance qualifiers, confounder language, developmental-timing statements, or initiating-event-class distinctions — if a sentence happens to carry one, don't chase it down, just extract the underlying KE/KER as usual and move on.
+
+**Full** — everything in Simplified, plus four additional kinds of annotation, captured only when the article's own text states them (same verbatim-evidence discipline as everything else — if you can't quote it, don't add it):
+
+1. **Species-specific / conditional branching** — a KE/KER that only applies to certain species, or only under a stated non-species condition (e.g. a minor enzyme pathway that matters "under specific circumstances," a genotype-driven fast/slow-metabolizer split). Fields: `species_annotation` (object, species → short state string) and `molecular_basis` (string) on the KE; `gate_type`, `active_in`, `absent_in`, and an optional `note` (short free-text) on the KER for structural on/off-in-this-species-or-condition branching; `special_circumstances` (array of `{ "condition": "...", "evidence": "<verbatim quote>" }`) for non-species qualifiers that don't cleanly fit the species fields; `has_special_circumstances` (true/false, derived from whether that array is non-empty).
+2. **Confounders** — a variable that shifts a KER's probability or magnitude without gating whether it exists at all (sex, background malformation frequency, species physiology, a genetic polymorphism that changes metabolic rate rather than switching a pathway on/off). KER-level field: `confounders` (array of `{ "type": "sex" | "genetic_polymorphism" | "background_frequency" | "species_physiology" | "other", "description": "...", "evidence": "<verbatim quote>" }`).
+3. **Developmental/temporal window** — a KE/KER that's only operative within a stated developmental stage or time window. Field: `developmental_window` (object: `{ "species": "...", "stage": "...", "time_range": "...", "evidence": "<verbatim quote>" }`) on the KE or KER.
+4. **Initiating-event class** — on MIE key events only (`"mie": true`), whether the article frames this MIE's origin as genetic, chemical, or something else (disease-driven, endogenous, etc.). Field: `initiating_event_class`: `"genetic" | "chemical" | "other"`, grounded in the KE's existing `evidence` quote (or a separate verbatim quote if the classification is stated elsewhere in the text) — never inferred from what kind of entity it is.
+
+Any KE/KER carrying #1, #2, or #3 also gets a `layers` field: an array drawn from `["species_conditional", "confounder", "developmental_window"]`, naming which of these three apply. This is the field a future visualizer toggle would filter on — it doesn't drive any behavior in this skill itself. A KE/KER with none of these stays untagged (no `layers` field), meaning "core pathway, always shown."
+
+Why these four and not others, and why Case Study 2-style genetic/chemical convergence isn't in this list: an article describing two mechanisms (e.g. a chemical branch and a genetic-susceptibility branch) that converge on a shared downstream KE is just ordinary branching/convergence topology — Step 2 already encodes that natively as separate KE chains meeting at one node. It doesn't need a special field; only genuinely *conditional* content (present in this species but not that one, active only past a threshold, magnitude shifted by a modifier, valid only in a time window) needs one of the four fields above.
 
 ## Step 1: Read each article
 
@@ -48,15 +63,17 @@ Encode as:
 {
   "aop_id": "<article_slug>",
   "key_events": [
-    { "id": "KE:0", "biological_entity_id": "<term_id>", "mie": true, "adverse_outcome": false, "source_type": "text", "evidence": "<verbatim quote from the article supporting this key event>" }
+    { "id": "KE:0", "biological_entity_id": "<term_id>", "mie": true, "adverse_outcome": false, "source_type": "text", "evidence": "<verbatim quote from the article supporting this key event>", "references": [] }
   ],
   "key_event_relationships": [
-    { "id": "KER:0", "source": "KE:0", "target": "KE:1", "relationship": ["<relationship_type>"], "evidence": "<verbatim quote from the article supporting this relationship>" }
+    { "id": "KER:0", "source": "KE:0", "target": "KE:1", "relationship": ["<relationship_type>"], "evidence": "<verbatim quote from the article supporting this relationship>", "references": [] }
   ]
 }
 ```
 
 `source_type` is `"text"`, `"figure"`, or `"both"` — whichever the key event was actually drawn from. Keep this distinction visible: figure-derived extractions are expected to be less reliable than text-derived ones.
+
+`references` starts as `[]` here in Step 2 — it gets filled in during Step 3C, once the article's reference list has ref_ids to point to. Don't try to resolve citations while still in Step 2; just keep the field present so Step 3C has something to fill in.
 
 `evidence` is a short, exact quote copied from the article's own text — not a paraphrase, not a summary — that directly supports this specific key event or relationship. If something is genuinely drawn from a figure with no supporting text, quote the figure's caption or axis/node labels instead, and set `source_type` accordingly. If you can't quote support for a candidate, that's a sign it doesn't belong in this file.
 
@@ -76,13 +93,21 @@ Two distinct things, don't conflate them:
 
 **A. Metadata about this source article itself** (the article you're reading, not something it cites). Add a `source_article` object: `article_slug`, title, full author list, author institutions/affiliations (as printed near the title or in a footnote), journal, publication date (year, full date if given), DOI, and the PDF filename read.
 
-**B. References actually cited inside the key events and relationships you extracted** — not the article's full bibliography. A review article can cite hundreds of works; only the ones backing a specific evidence quote you wrote down belong here. As you write each KE/KER's `evidence` field, note whether that sentence carries an inline citation (a bracketed number resolved against the article's numbered reference list, or an author-year mention like "(Chen et al., 2008)"). After finishing Step 2, collect the distinct works actually cited this way — typically a handful per article, not the whole bibliography — and for each capture just enough to locate it later: first author plus "et al." if there are more, publication year, and title (journal too if it's quick). Skip volume, page range, and DOI — not worth the time here. Keep the original in-text citation form as `citation_text` (e.g. `"Chen et al. (2008)"` or the bracketed number plus what it resolved to) as a fallback. Don't guess at a date or spell out an institution; leave a field `null` rather than invent it.
+**B. References actually cited inside the key events and relationships you extracted** — not the article's full bibliography. A review article can cite hundreds of works; only the ones backing a specific evidence quote you wrote down belong here. As you write each KE/KER's `evidence` field, note whether that sentence carries an inline citation (a bracketed number resolved against the article's numbered reference list, or an author-year mention like "(Chen et al., 2008)"). After finishing Step 2, collect the distinct works actually cited this way — typically a handful per article, not the whole bibliography — and for each capture just enough to locate it later: a `ref_id` (`"ref_1"`, `"ref_2"`, ... assigned in order of first appearance — this is what Step 3C links to, and it's only unique within this one article's file, not across the batch), first author plus "et al." if there are more, publication year, and title (journal too if it's quick). Skip volume, page range, and DOI — don't assume every PDF's reference section will even include one, and it's not worth the time here regardless. Keep the original in-text citation form as `citation_text` (e.g. `"Chen et al. (2008)"` or the bracketed number plus what it resolved to) as a fallback. Don't guess at a date or spell out an institution; leave a field `null` rather than invent it.
 
 Write `references` as the **last** key in the file, after `key_event_relationships` — so a human opening the file sees the actual pathway extraction first and doesn't have to scroll past citations to get to it.
 
 If any field in A or B is unclear or not plainly stated, leave it `null`. A wrong value here is worse than a missing one — this data needs to be traceable.
 
 Add a `source_articles: ["<article_slug>"]` field to every key event and key event relationship created in Step 2 — this is what makes counting possible later, don't skip it.
+
+## Step 3C: Link each key event and relationship to its specific citations
+
+This is what makes the reference list traceable back to individual claims instead of sitting as an undifferentiated block at the end of the file — do this right after Step 3B, once every reference has a `ref_id`.
+
+Go back through every KE and KER from Step 2. For each one, look at the `evidence` quote you already recorded: if that sentence carried an inline citation (the same ones you resolved in Step 3B), set this KE/KER's `references` field to the `ref_id`(s) it resolved to, e.g. `"references": ["ref_2"]`, or `["ref_2", "ref_5"]` if the sentence cited more than one. If a review synthesizes several sentences into one evidence quote and only part of it carries a citation, still just record whichever `ref_id`(s) actually appear attached to that quote — don't extend it to nearby citations that support a different sentence.
+
+If the evidence sentence carries no inline citation at all (it's the reviewing authors' own uncited synthesis, or a figure with no citation in its caption), leave `references` as `[]` — don't guess a source for it, and don't leave the field missing entirely; an empty array and "not yet checked" need to stay distinguishable, so always set it one way or the other before Step 5.
 
 ## Step 4: Align terminology against the ontology and everything minted so far
 
@@ -104,9 +129,13 @@ Relationship types follow the same reuse-or-mint discipline, not a separate one.
 
 Track every genuinely new term in a running list for this session (don't write into the ontology file itself) — output it in Step 7.
 
+### Full mode only: applying the four additional annotation types
+
+If EXTRACTION MODE is Full, apply this alongside Step 4, on the same paragraph-by-paragraph pass as Step 2 (don't do a separate re-read of the article looking for these — catch them as you go). For any KE or KER where the article's own text states one of the four kinds of qualifier described in "Extraction mode: Simplified vs. Full" above, add the matching field(s), grounded in a verbatim quote exactly like every other evidence-bearing field in this skill. Add the `layers` array to any KE/KER that received a species/circumstance, confounder, or developmental-window annotation. Don't go hunting for these if the article doesn't clearly state one — absence of a qualifier is the default, not something to infer from silence.
+
 ## Step 5: Validate and write this article's file now
 
-Before moving to the next article, check: every KE and KER id is unique within this file; every KER's source/target points to a real KE id; every KE has `source_articles`, `source_type`, and `evidence` set; every KER has `evidence` set; every `evidence` value is an actual excerpt from the article's own text or figure (not a paraphrase or something generated to sound plausible); `source_article` (Step 3A) and `references` (Step 3B) are both present.
+Before moving to the next article, check: every KE and KER id is unique within this file; every KER's source/target points to a real KE id; every KE has `source_articles`, `source_type`, and `evidence` set; every KER has `evidence` set; every `evidence` value is an actual excerpt from the article's own text or figure (not a paraphrase or something generated to sound plausible); `source_article` (Step 3A) and `references` (Step 3B) are both present; every KE and KER has a `references` field set (Step 3C) — `[]` is fine, missing is not, and every `ref_id` it names actually exists in this file's `references` list. In Full mode, also check that every `species_annotation`, `special_circumstances`, `confounders`, `developmental_window`, and `initiating_event_class` value is backed by a verbatim quote (either the KE/KER's own `evidence` field or, if stated separately, its own quoted text) — not a paraphrase, and not something added because it seemed biologically plausible.
 
 Write `output/<article_slug>_pathway.json` now, containing `source_article`, `key_events`, `key_event_relationships`, and `references`. Do this immediately — don't wait until all articles are processed, so an interrupted run still leaves completed work on disk. Append one line to `output/run_log.md`: article slug, one of processed successfully / processed — no TOPIC-relevant content found / excluded — not relevant to TOPIC / failed to open / no readable text found, plus pages read.
 
@@ -119,8 +148,12 @@ Continue through the full ARTICLES list. Each new article gets checked against t
 Once every article has its own file (Step 5), read them all back in and produce:
 
 - `output/new_terms.json` — every term minted this run that wasn't already in the ontology (including any `possible_duplicate_of` flags), plus which article(s) prompted each one.
-- `output/merged_tally.json` — built by joining the per-article files on each KE's `biological_entity_id` (not its local `KE:N` id, which only exists within one article) and each KER's (source entity, target entity, relationship type) tuple. For each, list which article(s) support it and the count. This is the actual deliverable — everything else is groundwork for it.
+- `output/merged_tally.json` — built by joining the per-article files on each KE's `biological_entity_id` (not its local `KE:N` id, which only exists within one article) and each KER's (source entity, target entity, relationship type) tuple. For each, record:
+  - `article_count` and `supporting_articles`: how many articles support it, and which ones — the original tally.
+  - `distinct_sources_cited` and `cited_sources`: resolve every contributing article's `references` (Step 3C `ref_id`s) back to that article's own reference-list entries (author/year/title), then deduplicate across **all** contributing articles by (first author, year) — the same primary source is often cited by more than one review in the batch, and that shouldn't inflate the count. `cited_sources` is the deduplicated list (`{ "first_author": ..., "year": ..., "title": ... }`); `distinct_sources_cited` is its length. This is a different number from `article_count` on purpose — a KE backed by 1 article citing 4 distinct primary sources is better evidenced than one backed by 3 articles all citing the same single source, and this makes that visible.
+  - In Full mode only: a `layers` field (union of every contributing article's `layers` values for this KE/KER) and a `layer_details` array, one entry per contributing article that supplied any Full-mode annotation: `{ "article_slug": "...", "species_annotation": ..., "molecular_basis": ..., "special_circumstances": ..., "confounders": ..., "developmental_window": ..., "initiating_event_class": ... }`, including only the sub-fields that article actually populated. Don't reconcile disagreements between articles here (e.g. one says a branch is species-conditional on rat/human, another gives different species) — list both entries under `layer_details` and let a human notice the discrepancy, same as `single_source_flags` below.
 - Within `merged_tally.json`, a `single_source_flags` array: any key event or relationship supported by only one article where the other articles clearly do discuss that same region of the pathway (not just articles that never touched that topic at all). Don't judge whether these are real biological differences or extraction misses — just surface them.
+- A separate `single_citation_flags` array: any KE/KER where `article_count` is more than 1 but `distinct_sources_cited` is only 1 — several articles all repeating the same single primary source is a materially weaker claim than the article count alone suggests, and it's a distinct condition from `single_source_flags` (which is about article coverage, not citation depth), so keep the two arrays separate rather than merging them.
 
 ## Optional: post-extraction wording pass
 
@@ -139,7 +172,7 @@ If the user asks for this pass:
 A run leaves several files in `output/`. Their names don't say much on their own — make sure the user handing this off knows what's in each one and what they'd actually use it for.
 
 **`<article_slug>_pathway.json`** (one per article, e.g. `smith_2019_pathway.json`)
-The single-article extraction: this article's key events, its key event relationships, its own bibliographic details, and a short list of just the sources actually cited inside that evidence (not the article's full bibliography — see Step 3B). That reference list sits at the end of the file, after the pathway content, so opening the file shows the actual extraction first. Written the moment that article finishes, so if the run stops partway through, whichever of these already exist are complete and safe to use — nothing partial. Open one of these to sanity-check that a specific article was read correctly, independent of anything else in the batch.
+The single-article extraction: this article's key events, its key event relationships, its own bibliographic details, and a short list of just the sources actually cited inside that evidence (not the article's full bibliography — see Step 3B), each one assigned a `ref_id`. Every key event and relationship carries a `references` field naming the specific `ref_id`(s) that back it (Step 3C) — so a claim can be traced to its exact citation, not just "somewhere in this article's bibliography." That reference list sits at the end of the file, after the pathway content, so opening the file shows the actual extraction first. Written the moment that article finishes, so if the run stops partway through, whichever of these already exist are complete and safe to use — nothing partial. Open one of these to sanity-check that a specific article was read correctly, independent of anything else in the batch.
 
 **`run_log.md`**
 A one-line-per-article log: which articles were processed, which were excluded as off-topic (Step 1b), which were processed but yielded no TOPIC-relevant content, which failed to open or had no readable text, how many pages were read. First stop if something seems off — e.g. if an article expected to contribute is missing from the tally, this file says whether it was excluded, came up empty, or failed outright, rather than just contributing nothing with no explanation.
@@ -148,17 +181,20 @@ A one-line-per-article log: which articles were processed, which were excluded a
 Every term (biological entity or relationship type) that didn't already exist in the ontology file and had to be minted during this run, plus which article(s) prompted it. Review this before adding anything permanently to the ontology — these are new, unreviewed additions. Anything carrying `possible_duplicate_of` is a term the run wasn't confident was new — a prompt for a human to decide by hand whether it should actually merge into the existing term it resembles.
 
 **`merged_tally.json`**
-The actual deliverable. Every key event and relationship, merged across all articles that mention it, with a count of how many articles support it. A key event backed by 3 of 4 articles is a stronger claim than one backed by 1 — this file is what makes that visible, which no single article's file can show on its own.
+The actual deliverable. Every key event and relationship, merged across all articles that mention it, with two separate counts: `article_count` (how many articles support it) and `distinct_sources_cited` (how many distinct primary references those articles cite as evidence, deduplicated across the whole batch). A key event backed by 3 of 4 articles is a stronger claim than one backed by 1 — and one backed by 3 articles that each cite a different primary source is stronger still than one backed by 3 articles all citing the same source. This file is what makes both of those visible, which no single article's file can show on its own. In Full mode, entries also carry `layers` and `layer_details` wherever an article stated a species/circumstance qualifier, a confounder, or a developmental window.
 
 **`single_source_flags`** (an array inside `merged_tally.json`, not its own file)
 Calls out key events or relationships that only one article supports, in a region of the pathway the other articles clearly do discuss. A deliberate "look here," not a verdict — the run doesn't judge whether that's a real point of biological disagreement between articles or a place where extraction went wrong on one side, a human makes that call.
+
+**`single_citation_flags`** (an array inside `merged_tally.json`, not its own file)
+Calls out key events or relationships backed by more than one article but only one distinct primary source between them — several reviews citing the same underlying study isn't the same as independent corroboration, and this is where that distinction becomes visible instead of getting flattened into a reassuring-looking article count.
 
 **`wording_suggestions.json`** (only if the optional post-extraction wording pass ran)
 Proposed relabelings for terms that don't already have a standard name, sourced from AOP-Wiki phrasing. Nothing in the actual data changes when this file is written — these are suggestions to apply by hand (swapping a label, not an id) if the user chooses to.
 
 ## Reference pathway example
 
-Anchors format and granularity only (Step 2). No matching source text exists for this — it's not a "paragraph in, JSON out" example. It predates the `evidence` field (won't show a filled-in quote) and doesn't use `species_annotation`/`gate_type`/etc., which is correct since those are out of scope for v1. This one is a plain linear chain — swap in a branching example if a run needs to model different topology.
+Anchors format and granularity only (Step 2). No matching source text exists for this — it's not a "paragraph in, JSON out" example. It predates the `evidence` field (won't show a filled-in quote) and doesn't show `references`, since it's plain-chain and Simplified-mode-shaped. This one is a plain linear chain — swap in a branching example if a run needs to model different topology.
 
 ```json
 {
@@ -175,6 +211,68 @@ Anchors format and granularity only (Step 2). No matching source text exists for
     { "id": "KER:2", "source": "KE:0", "target": "KE:2", "relationship": ["metabolizes_into", "forms"] },
     { "id": "KER:3", "source": "KE:2", "target": "KE:3", "relationship": ["promotes", "leads_to"] },
     { "id": "KER:4", "source": "KE:3", "target": "KE:4", "relationship": ["leads_to", "results_in"] }
+  ]
+}
+```
+
+## Reference pathway example — Full mode, species-conditional branching
+
+Anchors the four Full-mode annotation types (species/circumstance branching shown here; confounders, developmental windows, and initiating-event class follow the same attach-to-KE/KER, quote-backed pattern). Also predates a filled-in `references` array in this excerpt — a real run's evidence would carry actual `ref_id`s, not an empty list.
+
+```json
+{
+  "aop_id": "drug@hepatotoxicity_apap_1",
+  "key_events": [
+    { "id": "KE:0", "biological_entity_id": "cyp2e1", "mie": true, "adverse_outcome": false, "references": [] },
+    { "id": "KE:1", "biological_entity_id": "parent_drug", "mie": false, "adverse_outcome": false, "references": [] },
+    { "id": "KE:2", "biological_entity_id": "napqi", "mie": false, "adverse_outcome": false, "references": [] },
+    {
+      "id": "KE:3",
+      "biological_entity_id": "glucuronidation_capacity",
+      "mie": false,
+      "adverse_outcome": false,
+      "species_annotation": { "cat": "absent", "human": "present" },
+      "molecular_basis": "ugt1a6_pseudogene_in_felids",
+      "layers": ["species_conditional"],
+      "references": []
+    },
+    { "id": "KE:4", "biological_entity_id": "gsh_depletion", "mie": false, "adverse_outcome": false, "references": [] },
+    {
+      "id": "KE:5",
+      "biological_entity_id": "hepatocyte_necrosis",
+      "mie": false,
+      "adverse_outcome": true,
+      "species_annotation": { "cat": "therapeutic_dose", "human": "overdose_only" },
+      "layers": ["species_conditional"],
+      "references": []
+    }
+  ],
+  "key_event_relationships": [
+    { "id": "KER:1", "source": "KE:1", "target": "KE:0", "relationship": ["metabolized_by"], "references": [] },
+    { "id": "KER:2", "source": "KE:0", "target": "KE:2", "relationship": ["oxidizes_to", "forms"], "references": [] },
+    {
+      "id": "KER:3",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": ["intercepted_by", "detoxified_by"],
+      "gate_type": "species_conditional",
+      "active_in": ["human"],
+      "absent_in": ["cat"],
+      "layers": ["species_conditional"],
+      "references": []
+    },
+    {
+      "id": "KER:4",
+      "source": "KE:2",
+      "target": "KE:4",
+      "relationship": ["depletes", "binds_covalently"],
+      "gate_type": "species_conditional",
+      "active_in": ["cat"],
+      "note": "engaged_only_when_KE:3_absent",
+      "layers": ["species_conditional"],
+      "references": []
+    },
+    { "id": "KER:5", "source": "KE:4", "target": "KE:5", "relationship": ["leads_to", "causes"], "references": [] }
   ]
 }
 ```
