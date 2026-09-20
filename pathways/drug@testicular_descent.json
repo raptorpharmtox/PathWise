@@ -1,0 +1,157 @@
+{"aop_id": "drug@testicular_descent",
+"key_events": [
+        {
+            "id": "KE:0",
+            "biological_entity_id": "unknown",
+            "mie": true,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:1",
+            "biological_entity_id": "increased_coup-tf2",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:2",
+            "biological_entity_id": "decreased_steroidogenesis",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:3",
+            "biological_entity_id": "decreased_insl3",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:4",
+            "biological_entity_id": "decreased_testosterone",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:5",
+            "biological_entity_id": "decreased_dht",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:6",
+            "biological_entity_id": "ligament_agenesis",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:7",
+            "biological_entity_id": "urethral_closure",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:8",
+            "biological_entity_id": "cryptorchidism",
+            "mie": false,
+            "adverse_outcome": true
+        },
+        {
+            "id": "KE:9",
+            "biological_entity_id": "hypospadias",
+            "mie": false,
+            "adverse_outcome": true
+        },
+        {
+            "id": "KE:10",
+            "biological_entity_id": "epididymal_loss",
+            "mie": false,
+            "adverse_outcome": true
+        },
+        {
+            "id": "KE:11",
+            "biological_entity_id": "sperm_maturation",
+            "mie": false,
+            "adverse_outcome": true
+        },
+        {
+            "id": "KE:12",
+            "biological_entity_id": "impaired_fertility",
+            "mie": false,
+            "adverse_outcome": true
+        }
+
+    ],
+    "key_event_relationships":[
+        {
+            "id": "KER:1",
+            "source":"KE:0",
+            "target":"KE:1",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:2",
+            "source":"KE:0",
+            "target":"KE:3",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:3",
+            "source":"KE:1",
+            "target":"KE:2",
+            "relationship": ["leads_to"]
+        },
+        {
+            "id": "KER:4",
+            "source":"KE:2",
+            "target":"KE:4",
+            "relationship": ["results_in"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:4",
+            "target":"KE:10",
+            "relationship": ["leads_to"]
+        },
+        {
+            "id": "KER:6",
+            "source":"KE:4",
+            "target":"KE:5",
+            "relationship": ["leads_to", "results_in"]
+        },
+        {
+            "id": "KER:7",
+            "source":"KE:5",
+            "target":"KE:7",
+            "relationship": ["leads_to", "results_in"]
+        },
+        {
+            "id": "KER:8",
+            "source":"KE:7",
+            "target":"KE:9",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:9",
+            "source":"KE:3",
+            "target":"KE:6",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:10",
+            "source":"KE:6",
+            "target":"KE:8",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:11",
+            "source":"KE:10",
+            "target":"KE:11",
+            "relationship": ["causes"]
+        },
+        {
+            "id": "KER:12",
+            "source":["KE:8","KE:9","KE:11"],
+            "target":"KE:12",
+            "relationship": ["causes"]
+        }
+    ]
+}
