@@ -1,0 +1,86 @@
+{
+  "aop_id": "fluid_buildup_in_the_lungs@death_1",
+  "key_events": [
+    {
+      "id": "KE:1",
+      "biological_entity_id": "fluid_buildup_in_the_lungs",
+      "mie": true,
+      "adverse_outcome": false
+    },
+    {
+      "id": "KE:2",
+      "biological_entity_id": "gas_exchange",
+      "mie": true,
+      "adverse_outcome": false
+    },
+    {
+        "id": "KE:3",
+        "biological_entity_id": "hypoxia",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:4",
+        "biological_entity_id": "cellular_respiration",
+        "mie": false,
+        "adverse_outcome": false
+    },
+    {
+        "id": "KE:5",
+        "biological_entity_id": "death",
+        "mie": false,
+        "adverse_outcome": true
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "id": "KER:1",
+      "source": "KE:1",
+      "target": "KE:2",
+      "relationship": [
+        "increases", "inhibits"
+      ]
+    },
+    {
+      "id": "KER:2",
+      "source": "KE:2",
+      "target": "KE:3",
+      "relationship": [
+        "inhibits", "increases"
+      ]
+    },
+    {
+      "id": "KER:3",
+      "source": "KE:3",
+      "target": "KE:4",
+      "relationship": [
+        "increases", "decreases"
+      ]
+    },
+    {
+        "id": "KER:4",
+        "source": "KE:4",
+        "target": "KE:5",
+        "relationship": [
+          "decreases", "causes"
+        ]
+    }
+  ],
+  "references": [
+    {
+      "id": "REF:1",
+      "doi": "10.1016/j.ccc.2011.09.001",
+      "citation": "Ware, L. B., & Matthay, M. A. (2005). The acute respiratory distress syndrome. New England Journal of Medicine, 353(16), 1653-1664."
+    },
+    {
+      "id": "REF:2",
+      "doi": "10.1056/NEJMra041897",
+      "citation": "Matthay, M. A., Ware, L. B., & Zimmerman, G. A. (2012). The acute respiratory distress syndrome. Journal of Clinical Investigation, 122(8), 2731-2740."
+    },
+    {
+      "id": "REF:3",
+      "doi": "10.1164/rccm.200703-456SO",
+      "citation": "Thompson, B. T., Chambers, R. C., & Liu, K. D. (2017). Acute respiratory distress syndrome. New England Journal of Medicine, 377(6), 562-572."
+    }
+  ]
+}
