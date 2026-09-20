@@ -30,10 +30,22 @@ jobs:
         run: pip install jsonschema
 
       - name: Validate ontology schema
-        run: python validate.py
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] || \
+             ! git diff --quiet "origin/${{ github.base_ref }}...HEAD" -- pathwise_ontology.json schema.json; then
+            python validate.py
+          else
+            echo "Ontology and schema are unchanged; skipping schema validation."
+          fi
 
       - name: Check ontology IDs are unique
-        run: python check_unique_ids.py pathwise_ontology.json
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] || \
+             ! git diff --quiet "origin/${{ github.base_ref }}...HEAD" -- pathwise_ontology.json; then
+            python check_unique_ids.py pathwise_ontology.json
+          else
+            echo "Ontology is unchanged; skipping duplicate-ID validation."
+          fi
 
       - name: Test pathway reference validator
         run: python -m unittest -v test_validate_pathway_ontology.py
