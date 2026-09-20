@@ -14,7 +14,7 @@
     },
     {
       "id": "KE:2",
-      "biological_entity_id": "parent_drug",
+      "biological_entity_id": "metabolite_of_parent_drug",
       "mie": false,
       "adverse_outcome": false
     },
