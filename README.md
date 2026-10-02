@@ -61,11 +61,11 @@ When it finishes, it prints a summary: key event and relationship totals, which 
 
 ## Scope
 
-**Always included:** pathway extraction, per-article citations tied to each key event and relationship, term matching against your ontology, and a tally across articles (both an article count and a count of distinct cited papers).
+**Always included:** pathway extraction, per-article citations tied to each key event and relationship, two quality notes on each (whether the article reports counterfactual evidence for that step, such as a competition or knockout experiment, and whether it reports attempts to disprove it), term matching against your ontology, and a tally across articles (both an article count and a count of distinct cited papers).
 
 **Full mode only:** species-specific or conditional branching (including minor pathways that only matter under specific circumstances), confounders (sex, genetic polymorphisms, background rates, species physiology), developmental windows, and initiating-event class. These are recorded only when an article's own text states them, and each one is tagged so a future visualizer can show or hide them separately from the core chain.
 
-**Never included:** weight-of-evidence grading, dose or exposure study details, narrative summaries, and judgments about whether a disagreement between articles is real biology or an extraction mistake. Disagreements get flagged, not resolved. If you want any of this, ask for it directly.
+**Never included:** dose or exposure study details, narrative summaries, and judgments about whether a disagreement between articles is real biology or an extraction mistake. Disagreements get flagged, not resolved. If you want any of this, ask for it directly.
 
 ## Known limitations
 
