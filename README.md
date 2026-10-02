@@ -6,7 +6,11 @@ During extraction it uses the papers and nothing else. It doesn't fill gaps with
 
 ## What you need before running it
 
-- **Extraction mode.** The skill asks this first. Simplified pulls the core chain: initiating events, key events, relationships, adverse outcomes, the quotes behind them, their citations, and the tally. Full does all of that and also records species differences, confounders, developmental windows, special circumstances, and initiating-event class (genetic, chemical, or other) whenever an article states them. The choice can't be changed partway through. If you pick Simplified and want the extra detail later, the whole batch has to be run again.
+- **How much detail you want (called the extraction mode).** The skill asks this first. There are two options:
+  - **Simplified:** the basic pathway. It records what starts the pathway, each step along the way, how the steps connect, and the final outcome, along with the quote and citations behind each one.
+  - **Full:** everything in Simplified, plus extra details whenever an article mentions them. These include differences between species, factors like sex or genetics that change how strong an effect is, the stage of development when something happens, steps that only apply in special circumstances, and whether the trigger is genetic, chemical, or something else.
+
+  You can't switch partway through. If you pick Simplified and later want the extra details, the whole batch has to be run again.
 - **A topic.** The mechanism or subject to extract, for example "Acetaminophen-Induced Hepatotoxicity."
 - **A topic description** (optional, recommended). One to three sentences narrowing the topic: direction of causation, organ, exposure type. Don't describe pathway steps here, only what counts as in scope.
 - **A folder of PDFs.** Every article you want processed, with nothing else in the folder. An ordered list of file paths also works.
