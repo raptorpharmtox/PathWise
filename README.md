@@ -35,7 +35,7 @@ Everything is written to an `output/` folder:
 
 | File | What it is |
 |---|---|
-| `<article_slug>_pathway.json` | One per article. Its key events and relationships, each with the quotes that support it and the citations attached to each quote, plus the list of sources it cites. |
+| `<aop_id>.json` | One per article, named like `cyp2e1@hepatocyte_necrosis_smith_2019.json` (initiating event, `@`, adverse outcome, then the article's name). Its key events and relationships, each with the quotes that support it and the citations attached to each quote, plus the list of sources it cites. |
 | `run_log.md` | One line per article: processed, excluded as off-topic, borderline, or failed to read, with the reason and pages read. Check here first if an article seems to be missing. |
 | `new_terms.json` | Every new ontology term minted this run, for your review. Nothing is added to your ontology automatically. If you do the end-of-run reviews, it also records each decision (merged, kept separate, or adopted from an ontology), the reason, who decided, and when. |
 | `merged_tally.json` | The main result. Every key event and relationship merged across articles, with `article_count` (how many articles support it) and `distinct_sources_cited` (how many different papers those articles cite for it). It also holds the flag lists described below. In Full mode it carries the extra detail too. |
