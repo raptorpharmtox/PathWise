@@ -30,11 +30,11 @@ This skill is meant to be invoked with nothing more than "extract the pathway fo
 - **TOPIC DESCRIPTION** — optional but ask for it anyway rather than skipping straight past it; the user can decline. A short 1-3 sentence elaboration of TOPIC's scope: which direction of causation, which mechanism type (e.g. genetic vs. acquired), which organ or exposure. Its only job is to disambiguate what counts as in-scope subject matter — it must never describe what the pathway's steps or structure should turn out to be. If it reads like a preview of key events in order, it's doing the wrong job and will bias extraction exactly the way the hard constraint above forbids; rewrite it as a boundary statement instead. Use it the same way as TOPIC itself when deciding whether something belongs.
 - **ARTICLES** — required. A folder path (list every PDF in it, process in filename order) or an explicit ordered file list. If it's a folder, confirm with the user that it contains only the PDFs meant for this run — anything else sitting in there gets swept in too and processed as if it belonged.
 - **ONTOLOGY FILE** — path to the reference ontology JSON. If the user doesn't name one, ask whether they have an existing ontology file to reuse before defaulting to `pathwise_ontology.json` in the working directory — reusing their existing file is what makes terminology converge across separate runs, so don't default silently past one that already exists. Confirm whichever path is actually in play is present and readable before starting Step 1, since every term-alignment decision depends on it.
-- **EXTRACTION MODE** — required. Ask whether they want:
+- **EXTRACTION MODE** — required, and **ask this first**, before asking for TOPIC or the PDFs. Explain what the choice means before asking, in plain language:
   - **Simplified** — the core MIE→KE→AO chain only (still includes per-KE/KER citation linking and the source-count tally — those aren't optional).
   - **Full** — simplified, plus capturing species-specific/conditional branching, confounders, developmental-stage windows, and initiating-event class (genetic/chemical/other), whenever the article states them.
-  
-  This changes what Step 2 looks for while reading, not just what's shown later — decide it before Step 1, don't default silently. See "Extraction mode: Simplified vs. Full" in [references/procedure.md](references/procedure.md) for exactly what each mode does and doesn't capture.
+
+  Tell the user that the choice changes what the skill looks for while it reads each article, and that it **can't be changed partway through or afterward**: if they choose Simplified and later want the extra detail, the only way to get it is to run the whole batch again. Don't default silently. See "Extraction mode: Simplified vs. Full" in [references/procedure.md](references/procedure.md) for exactly what each mode does and doesn't capture.
 
 ## Workflow overview
 

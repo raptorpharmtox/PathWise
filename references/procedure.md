@@ -10,7 +10,7 @@ Always out of scope, by deliberate design choice, not because anything is unknow
 
 ### Extraction mode: Simplified vs. Full
 
-Ask which mode the user wants as part of Required Inputs, before Step 1 — it changes what Step 2 looks for while reading, not just what gets shown afterward.
+Ask which mode the user wants first, before any other input and before Step 1, and tell them the choice is final for the run — it changes what Step 2 looks for while reading, not just what gets shown afterward, so switching later means re-reading every PDF.
 
 **Simplified** — extract only the core chain: MIEs, KEs, KERs, AO flags, evidence quotes, citation links, and the tally. Don't go looking for species/circumstance qualifiers, confounder language, developmental-timing statements, or initiating-event-class distinctions — if a sentence happens to carry one, don't chase it down, just extract the underlying KE/KER as usual and move on.
 
