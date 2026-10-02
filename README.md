@@ -64,7 +64,7 @@ When it finishes, it prints a summary: key event and relationship totals, which 
 ## Known limitations
 
 - The reviewer name saved with each review decision is just a name typed in at the start of the review. It isn't verified.
-- The end-of-run AOP-Wiki, BioCarta, and Rosetta Stone checks haven't been tested yet.
+- The AOP-Wiki lookup uses its public SPARQL endpoint, which was reachable and returned results when tested, but the full review flow hasn't been run. The BioCarta and Rosetta Stone checks haven't been built or tested yet.
 - Choosing Simplified mode means any extra detail (species, confounders, special circumstances) can only be added later by running the batch again.
 - None of the recent changes have been run on a real batch of PDFs yet.
 
