@@ -2,7 +2,7 @@
 
 A Claude Code skill that extracts a biological pathway — molecular initiating events (MIEs), key events (KEs), key event relationships (KERs), and adverse outcomes (AOs) — from a batch of PDF research articles, strictly grounded in what each article's own text and figures say.
 
-It never fills gaps from general biology knowledge and never consults the AOP-Wiki database during extraction, so it can surface pathways that are new or that branch differently from what's already registered elsewhere.
+During extraction it uses the papers only: it never fills gaps from general biology knowledge and never consults any outside source, so it can surface pathways that are new or that branch differently from what's already registered elsewhere. Outside ontologies are consulted only in an optional check at the very end of a run, and only to match term names.
 
 ## What you need before running it
 
@@ -36,7 +36,7 @@ Everything is written to an `output/` folder:
 | `new_terms.json` | Every new ontology term minted this run, flagged for your review — nothing here is merged into your ontology automatically. If you do the end-of-run reviews, it also records each decision (merged / kept separate / adopted from an ontology), the reason, who decided, and when. |
 | `merged_tally.json` | **The main deliverable.** Every key event and relationship merged across all articles, with an `article_count` (how many articles) *and* a `distinct_sources_cited` count (how many distinct primary references those articles actually cite), plus `single_source_flags` (only one article) and `single_citation_flags` (several articles, but all citing the same one source) calling out the weaker-evidenced spots. In Full mode, also carries species/circumstance branching, confounders, developmental windows, and initiating-event class wherever an article stated one. |
 
-**While it runs**, Claude tells you right away if an article fails to open, is excluded as off-topic, or is borderline on-topic (with a reason each time). **When it finishes**, it prints a summary (key event and relationship totals, which articles were flagged and why, and the possible-duplicate term pairs by name), then offers two optional reviews: step through the possible duplicates, and check the new terms against existing ontologies (AOP-Wiki first; BioCarta and eTRANSAFE Rosetta Stone optionally after). It won't interpret the biology for you. That review is on you.
+**While it runs**, Claude tells you right away if an article fails to open, is excluded as off-topic, is borderline on-topic, or yields no key events (with a reason each time). **When it finishes**, it prints a summary (key event and relationship totals, which articles were flagged and why, and the possible-duplicate term pairs by name), then offers two optional reviews: step through the possible duplicates, and check the new terms against existing ontologies (AOP-Wiki first; BioCarta and eTRANSAFE Rosetta Stone optionally after). It won't interpret the biology for you. That review is on you.
 
 ## Scope
 
@@ -45,6 +45,12 @@ Everything is written to an `output/` folder:
 **In scope for Full mode only:** species-specific/conditional branching (including minor pathways that only matter "under specific circumstances"), confounders (sex, genetic polymorphisms, background rates, species physiology), developmental/temporal windows, and initiating-event class (genetic/chemical/other) — captured only when an article's own text states them, tagged with a `layers` field so a future visualizer could show/hide them independently of the core chain.
 
 **Out of scope by design regardless of mode:** weight-of-evidence grading, dose/exposure study parameters, narrative summaries, and any judgment call about whether a disagreement between articles is real biology or an extraction miss (these get flagged, not resolved). If you need any of that, ask for it explicitly — the skill won't add it on its own.
+
+## Known limitations (to revisit)
+
+- The reviewer name recorded with each review decision is just a name typed in at the start of the review; it isn't verified.
+- The end-of-run AOP-Wiki, BioCarta and Rosetta Stone checks haven't been tested yet.
+- Choosing Simplified mode means any extra detail (species, confounders, special circumstances) can only be added later by re-running the batch.
 
 ## Full details
 
