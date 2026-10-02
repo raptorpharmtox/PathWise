@@ -44,8 +44,14 @@ The flag lists inside `merged_tally.json` are places to look at, not verdicts:
 
 - `single_source_flags`: supported by only one article, in an area other articles also cover.
 - `single_citation_flags`: supported by several articles that all cite the same one paper.
-- `relationship_disagreement_flags`: two articles connect the same two key events but use no verb in common (for example "activates" and "inhibits").
+- `relationship_disagreement_flags`: two articles connect the same two key events but their tags don't match in either position (for example "activates" and "inhibits").
 - `ambiguous_source_matches`: cited papers the skill had to match by author and year, or likely the same paper with different years, so you can confirm them.
+
+## How relationships are written
+
+Each relationship has exactly two tags, separated by a comma. The first describes the relationship from the first event's side, and the second describes it from the second event's side, for example `["metabolizes_into", "forms"]`. If a relationship reads the same from both sides, the word is repeated, for example `["binds_to", "binds_to"]`.
+
+The two tags are never used to record opposite actions. If one article says A activates B and another says A inhibits B, that leads to a different outcome, so it is a different pathway. The skill keeps them as separate relationships and flags them.
 
 ## While it runs and when it finishes
 
