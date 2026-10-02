@@ -33,11 +33,10 @@ Everything is written to an `output/` folder:
 |---|---|
 | `<article_slug>_pathway.json` | One per article — that article's key events and relationships (each one tagged with exactly which citation(s) back it), plus just the sources it actually cites as evidence. |
 | `run_log.md` | One line per article: processed / excluded as off-topic / failed to read, plus pages read. Check here first if an article seems to be missing. |
-| `new_terms.json` | Every new ontology term minted this run, flagged for your review — nothing here is merged into your ontology automatically. |
+| `new_terms.json` | Every new ontology term minted this run, flagged for your review — nothing here is merged into your ontology automatically. If you do the end-of-run reviews, it also records each decision (merged / kept separate / adopted from an ontology), the reason, who decided, and when. |
 | `merged_tally.json` | **The main deliverable.** Every key event and relationship merged across all articles, with an `article_count` (how many articles) *and* a `distinct_sources_cited` count (how many distinct primary references those articles actually cite), plus `single_source_flags` (only one article) and `single_citation_flags` (several articles, but all citing the same one source) calling out the weaker-evidenced spots. In Full mode, also carries species/circumstance branching, confounders, developmental windows, and initiating-event class wherever an article stated one. |
-| `wording_suggestions.json` | Only appears if you separately ask for the optional AOP-Wiki wording pass afterward. |
 
-Claude will report back just the counts (articles processed, key events/relationships found, new terms minted, flags raised) — it won't interpret the biology for you. That review is on you.
+**While it runs**, Claude tells you right away if an article fails to open, is excluded as off-topic, or is borderline on-topic (with a reason each time). **When it finishes**, it prints a summary (key event and relationship totals, which articles were flagged and why, and the possible-duplicate term pairs by name), then offers two optional reviews: step through the possible duplicates, and check the new terms against existing ontologies (AOP-Wiki first; BioCarta and eTRANSAFE Rosetta Stone optionally after). It won't interpret the biology for you. That review is on you.
 
 ## Scope
 

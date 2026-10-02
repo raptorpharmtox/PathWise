@@ -31,7 +31,7 @@ If ARTICLES names a folder, list every PDF in it now and process in filename ord
 
 For each PDF: use the Read tool. If it's more than 10 pages, pass a page range (max 20 pages per call) and read in sequential chunks until the whole document is covered — don't assume one call gets everything. Read the entire article before starting Step 2; a connection between something introduced early and something described later would otherwise get missed. Each page returns as both text and an image, so figures/diagrams are visible as you read — no separate step needed for that.
 
-If a PDF fails to open or returns no readable content (likely scanned/image-only), note it in the run log and move to the next article rather than stopping the whole run.
+If a PDF fails to open or returns no readable content (likely scanned/image-only), note it in the run log, tell the user right away (see "Per-article callouts" below), and move to the next article rather than stopping the whole run.
 
 Derive this article's slug now: first author's last name + publication year, lowercase (e.g. `smith_2019`). Use it consistently everywhere this article is referenced. If two articles in the same batch would produce the same slug, disambiguate with `-a`/`-b` suffixes in processing order.
 
@@ -41,11 +41,24 @@ Do this after finishing the full read of the article and before starting Step 2 
 
 The bar is substantive engagement with TOPIC (and TOPIC DESCRIPTION, if given), not mere adjacency. An article that mentions TOPIC in passing, cites it as background for a different mechanism, or covers a related-but-distinct pathway that never actually connects to what TOPIC names, is not relevant, even if it's well-written and pathway-shaped in isolation. This is the same "must connect to every element TOPIC names" discipline from Step 2 (see below), applied to the whole article instead of one candidate key event — a batch assembled by keyword search routinely pulls in a few articles that are adjacent but don't actually belong, and this is the point where they get caught rather than quietly producing a padded pathway.
 
-- **Clearly off-topic** — the article isn't substantively about TOPIC at all. Exclude it: write one line to `output/run_log.md` as `excluded — not relevant to TOPIC` with a short reason, don't produce a `<article_slug>_pathway.json` for it, and move to the next article. Don't spend Steps 2-5 on an article you've already determined doesn't belong.
+- **Clearly off-topic** — the article isn't substantively about TOPIC at all. Exclude it: write one line to `output/run_log.md` as `excluded — not relevant to TOPIC (reason: <one line>)`, don't produce a `<article_slug>_pathway.json` for it, and move to the next article. The one-line reason is required, not optional — it's what the user is told live and what the end-of-run recap repeats, so a bare label isn't enough. Don't spend Steps 2-5 on an article you've already determined doesn't belong.
 - **Genuinely on-topic** — proceed to Step 2 normally.
-- **Borderline** (touches TOPIC's subject area but you're not certain it clears the bar) — don't exclude it on suspicion alone. Proceed to Step 2 and let the evidence requirement do the filtering: if nothing in the article actually supports a TOPIC-connected key event, Step 2 will legitimately produce zero key events for it. That's a real, informative outcome in its own right — note it in the run log as `processed — no TOPIC-relevant content found` rather than silently producing an empty file with no explanation.
+- **Borderline** (touches TOPIC's subject area but you're not certain it clears the bar) — don't exclude it on suspicion alone. Write down a one-line reason for the uncertainty (what part of TOPIC it touches and what's missing or unclear). Proceed to Step 2 and let the evidence requirement do the filtering: if nothing in the article actually supports a TOPIC-connected key event, Step 2 will legitimately produce zero key events for it. That's a real, informative outcome in its own right. Log it as `processed — borderline on-topic (reason: <one line>)`, or if Step 2 produced zero key events, as `processed — borderline on-topic, no TOPIC-relevant content found (reason: <one line>)`, rather than silently producing an empty file with no explanation.
+
+"Borderline" here means only one thing: uncertainty about whether the article is on-topic for TOPIC / TOPIC DESCRIPTION. It says nothing about the article's quality, methods, or reliability.
 
 Don't use this step to second-guess an article's scientific quality or methodology — that's out of scope here, same as weight-of-evidence grading. This is strictly a topic-boundary check.
+
+## Per-article callouts — tell the user live
+
+Right after each article is finished (its file written in Step 5, or it was skipped in Step 1/1b), check whether it falls into one of the four cases below. If so, say so in chat immediately, in a sentence or two — don't hold it for the end of the run, and don't leave it only in `run_log.md`.
+
+- **Failed to parse** — name the article, say the PDF was unreadable and skipped, and that it didn't contribute to the run.
+- **Excluded as entirely off-topic** — name the article and give the one-line reason from Step 1b.
+- **Borderline on-topic** — name the article, say plainly that "borderline" means the skill was unsure whether it's on-topic for the topic/description given (not a comment on quality), that it was processed anyway, and give the one-line reason.
+- **Borderline and zero key events extracted** — a more serious case than plain borderline: the uncertain call also produced nothing usable. Flag it more prominently than the plain borderline message (e.g. open with "Needs attention:"), name the article, and give the reason.
+
+Never call out, at this stage or any other: a normal processed article with no issues; a *partial* exclusion (leaving out a tangential section or side mechanism of an article that is on-topic overall — that is ordinary scoping, it isn't logged as an exclusion, and it isn't mentioned to the user); the source type (text/figure/both) or adverse-outcome flag of any individual key event or relationship; single-source flags on individual key events or relationships.
 
 ## Step 2: Extract the pathway from this article
 
@@ -122,7 +135,7 @@ If no match exists at all, before writing a free-text term, check for an already
 - Gene or protein → the official HGNC gene symbol
 - Chemical → the standard/common name as used in PubChem
 - A disease or adverse-outcome-type node → check if this maps to a standard clinical term (SNOMED CT, MedDRA, MeSH-style naming); use it if confident of the mapping
-- A mechanistic key event step (not a named disease) with no HGNC/PubChem/SNOMED-style match → write a clear, plain-language `id` (lowercase, underscores, matching the ontology's existing style) and a one-sentence `definition`, formatted exactly like existing entries. Do **not** check AOP-Wiki here, even just for wording — see "Optional: post-extraction wording pass" below for why, and for the separate, later step where that's available.
+- A mechanistic key event step (not a named disease) with no HGNC/PubChem/SNOMED-style match → write a clear, plain-language `id` (lowercase, underscores, matching the ontology's existing style) and a one-sentence `definition`, formatted exactly like existing entries. Do **not** check AOP-Wiki here, even just for wording — see Step 8c below for the separate, later, user-approved step where AOP-Wiki matching happens.
 - Otherwise, write a clear, plain-language `id` (lowercase, underscores, matching the ontology's existing style) and a one-sentence `definition`, formatted exactly like existing entries.
 
 Relationship types follow the same reuse-or-mint discipline, not a separate one. Check the ontology's relationship-type category first (activates, inhibits, binds_to, etc.) and reuse an existing verb whenever it captures the actual meaning, even if the article's phrasing is more elaborate. Only mint a new relationship term when an existing one would genuinely lose meaning, not just because the article's wording is more specific or colorful. A new relationship term gets a clear `id`, a one-sentence `definition`, and a `direction` field describing which end is earlier/causal, matching the format of existing relationship-type entries. Log it in `new_terms.json` under the relationship-type category, not mixed in with entity terms.
@@ -137,7 +150,7 @@ If EXTRACTION MODE is Full, apply this alongside Step 4, on the same paragraph-b
 
 Before moving to the next article, check: every KE and KER id is unique within this file; every KER's source/target points to a real KE id; every KE has `source_articles`, `source_type`, and `evidence` set; every KER has `evidence` set; every `evidence` value is an actual excerpt from the article's own text or figure (not a paraphrase or something generated to sound plausible); `source_article` (Step 3A) and `references` (Step 3B) are both present; every KE and KER has a `references` field set (Step 3C) — `[]` is fine, missing is not, and every `ref_id` it names actually exists in this file's `references` list. In Full mode, also check that every `species_annotation`, `special_circumstances`, `confounders`, `developmental_window`, and `initiating_event_class` value is backed by a verbatim quote (either the KE/KER's own `evidence` field or, if stated separately, its own quoted text) — not a paraphrase, and not something added because it seemed biologically plausible.
 
-Write `output/<article_slug>_pathway.json` now, containing `source_article`, `key_events`, `key_event_relationships`, and `references`. Do this immediately — don't wait until all articles are processed, so an interrupted run still leaves completed work on disk. Append one line to `output/run_log.md`: article slug, one of processed successfully / processed — no TOPIC-relevant content found / excluded — not relevant to TOPIC / failed to open / no readable text found, plus pages read.
+Write `output/<article_slug>_pathway.json` now, containing `source_article`, `key_events`, `key_event_relationships`, and `references`. Do this immediately — don't wait until all articles are processed, so an interrupted run still leaves completed work on disk. Append one line to `output/run_log.md`: article slug, one of processed successfully / processed — borderline on-topic (reason) / processed — borderline on-topic, no TOPIC-relevant content found (reason) / excluded — not relevant to TOPIC (reason) / failed to open / no readable text found, plus pages read. Then apply "Per-article callouts" above.
 
 ## Step 6: Repeat Steps 1-5 for the next article
 
@@ -155,17 +168,56 @@ Once every article has its own file (Step 5), read them all back in and produce:
 - Within `merged_tally.json`, a `single_source_flags` array: any key event or relationship supported by only one article where the other articles clearly do discuss that same region of the pathway (not just articles that never touched that topic at all). Don't judge whether these are real biological differences or extraction misses — just surface them.
 - A separate `single_citation_flags` array: any KE/KER where `article_count` is more than 1 but `distinct_sources_cited` is only 1 — several articles all repeating the same single primary source is a materially weaker claim than the article count alone suggests, and it's a distinct condition from `single_source_flags` (which is about article coverage, not citation depth), so keep the two arrays separate rather than merging them.
 
-## Optional: post-extraction wording pass
+## Step 8: End-of-run summary and interactive checkpoints
 
-This is a **separate, opt-in step the user must explicitly ask for** — never run it automatically as part of Steps 1-7, and never run it until every article's file is written and Step 7's merge is complete.
+Runs after Step 7, once every article's file and `merged_tally.json` are written. Nothing here changes what the earlier steps write — it only adds what's said to the user, plus the two optional review checkpoints below. Everything in 8b and 8c is relabeling only (see "What relabeling may and may not do").
 
-Rationale: checking AOP-Wiki for a term's standard phrasing requires actually opening that term's entry, which shows its full context — upstream/downstream key events, other pathways it belongs to. During extraction (Steps 1-7), that exposure risks quietly reshaping what gets extracted or how events connect, which is exactly what the hard constraint at the top of SKILL.md forbids. Once extraction is fully done and the merged tally is on disk, that risk is gone — there's nothing left for a wording lookup to bias, because the structure is already fixed.
+### 8a. Summary (always print)
 
-If the user asks for this pass:
+- Counts: total key events and total relationships in the merged tally, and how many relationships have `article_count` of 2 or more. Also the batch counts (articles processed / excluded as off-topic / failed to read) and new terms minted. In Full mode, also how many key events/relationships carry each kind of Full-mode annotation.
+- A named recap of every article that triggered a callout during parsing (failed / excluded off-topic / borderline / borderline with zero key events): article name plus its one-line reason, e.g. "1 article flagged: smith_2019 — borderline on-topic (reason: ...)". If none, say none.
+- The possible-duplicate term pairs, listed **by name only** (e.g. "mitochondrial membrane rupture" vs. "mitochondrial swelling") — no reasons here; the reason is first shown in 8b. This is how the user learns the pairs exist even if they skip the review.
+- Do **not** include single-source or single-citation counts or flags anywhere in this summary — those stay in the JSON only.
 
-1. Read `output/merged_tally.json` and `output/new_terms.json` — the term set is now closed; this step relabels, it never adds, removes, or reconnects key events or relationships.
-2. For each `biological_entity_id` or relationship type that doesn't already have an HGNC/PubChem/SNOMED-style name, check AOP-Wiki for standard phrasing of that specific, already-identified concept.
-3. Don't rewrite the existing per-article or merged files in place. Write suggestions to `output/wording_suggestions.json`, one entry per term: `{ "term_id": "...", "current_label": "...", "suggested_label": "...", "source": "AOP-Wiki KE:1234" }`. A human applies these deliberately (e.g. as a find-and-replace of the label, not the id, across the ontology) rather than having them silently take effect.
+### 8b. Possible-duplicate review (interactive)
+
+Ask: "Would you like to review the possible duplicate terms now?"
+
+- **No** — move on; the pairs stay flagged in `new_terms.json` for later.
+- **Yes** — go through the pairs one at a time. For each, show both terms and the one-line reason they were flagged, and let the user choose **merged** or **kept separate**. If merged, ask which of the two is the canonical term. If one of the two is already in the ontology file, it must be the canonical one — the ontology file is never relabeled.
+
+Record every decision, merges and keep-separates alike, in a `resolved_duplicates` array in `output/new_terms.json` (one entry per pair): `term_a`, `term_b`, `original_reason` (the one-line flag reason), `decision` (`"merged"` or `"kept_separate"`), `canonical_term` (merges only), `decided_by`, `decided_at`.
+
+- `decided_by`: ask the user once, at the first decision, for the name to record, and reuse it for the rest of the session. Don't infer it from the environment or guess.
+- `decided_at`: UTC timestamp, ISO 8601, read from the system clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`), not estimated.
+- A `kept_separate` entry is logged exactly like a merge. It documents that a person reviewed the pair and chose not to merge it.
+- On a merge, relabel the non-canonical term to the canonical one in every `output/<article_slug>_pathway.json` where it appears (`biological_entity_id` for entity terms, the `relationship` array for relationship types). Do not touch `evidence`, `references`, or any other field. The supporting quote stays exactly as extracted and attributed to its own article. Mark the non-canonical entry in `new_terms.json` with `"status": "merged_into"` and `"merged_into": "<canonical>"`; don't delete it.
+- When anything was merged, regenerate `merged_tally.json` by re-running Step 7, so the tally reflects the standardized labels.
+
+### 8c. Ontology-check checkpoint (interactive)
+
+Ask: "Would you like to run a check of the new terms against existing ontologies?" If **no**, the run is done. If **yes**, ask: "Would you like a list of the newly minted terms first?" and show the list if so (the entries in `new_terms.json` that haven't been marked `merged_into`).
+
+**Step 1 — AOP-Wiki (always first, automatic once the user said yes).** This is the one place AOP-Wiki may be consulted, and only because the pathway structure is already final on disk (see the rule at the top of SKILL.md for why this can never happen earlier).
+- Check the entity (key-event) terms only. Relationship-type terms aren't checked here, and the user should be told so.
+- Use AOP-Wiki's SPARQL/RDF endpoint or bulk export (confirm the current address when running). If it can't be reached, say so plainly and skip the check; don't answer from memory.
+- Compare only the new term's label and definition against AOP-Wiki key-event titles and definitions. Ignore everything else in the entry (upstream/downstream events, which AOPs it belongs to); none of it may influence the pathway. A hit is a *potential* match, not a verdict.
+- Report in plain language, e.g. "5 out of 10 new terms have potential matches on AOP-Wiki." Then ask: "Would you like to review these matches?" If no, the terms stay as written and the flow continues to Step 2.
+- If yes: for each term with a potential match, show the new term and its definition beside the candidate AOP-Wiki key event (title, ID, definition), and let the user choose to **adopt** the AOP-Wiki term or **keep** the original.
+- Log every decision in a `resolved_ontology_matches` array in `new_terms.json`, parallel to `resolved_duplicates`: `source` (`"AOP-Wiki"`), `original_term`, `candidate_term`, `candidate_id`, `decision` (`"adopted"` or `"kept_original"`), `kept_term`, `decided_by`, `decided_at` (same rules as 8b).
+- On **adopt**: the new label is the AOP-Wiki title in the ontology's id style (lowercase, underscores); store the AOP-Wiki ID as `aopwiki_id` on the `new_terms.json` entry; relabel in the per-article files exactly as in 8b (evidence untouched); regenerate `merged_tally.json`.
+
+**Step 2 — other ontology sources (optional, user decides, context first).** After Step 1, ask whether to check the terms still not adopted into an AOP-Wiki term against **BioCarta** and/or the **eTRANSAFE "Rosetta Stone"** mapping resource. Show a short description of each first, so the user can judge whether it's relevant to this pathway:
+- *BioCarta* — curated diagrams of gene/protein-level signaling and metabolic pathways, essentially a labeled map of how particular genes and proteins interact in a defined process. Useful when a new term describes a signaling or metabolic step that already has an established pathway name. It hasn't been actively maintained in years, so its vocabulary reflects older, well-established pathway biology.
+- *Rosetta Stone (eTRANSAFE)* — a term-mapping approach from the eTRANSAFE drug-safety research project, built to crosswalk preclinical (animal-study) and clinical (human) terminology, so an animal toxicity finding can be matched to the equivalent human drug-safety term. Useful when a new term is a toxicity endpoint with a plausible clinical correlate; less useful for a purely mechanistic or molecular term.
+
+Then one prompt: "Which would you like to check: BioCarta, Rosetta Stone, both, or neither?" For each one chosen, follow the same pattern as Step 1: run the check, report how many terms have potential matches, offer the same side-by-side review, log decisions in `resolved_ontology_matches` (with `source` set to the resource), relabel on adoption, regenerate `merged_tally.json`.
+
+Neither resource has a confirmed ready-made "check my term against this list" service. BioCarta's data mainly survives as static gene-set files bundled in MSigDB, and public query access for the Rosetta Stone resource is unconfirmed. If the data for a chosen resource can't be fetched, say plainly which one couldn't be checked and why. Never produce matches from memory.
+
+### What relabeling may and may not do
+
+Relabeling changes only the term label a key event or relationship is filed under. It never adds, removes, or reconnects key events or relationships, and never touches `evidence` or `references`. It can still have a consequence: if two nodes in one article end up with the same label after a merge or adoption, both nodes stay in that article's file, and Step 7 counts the article once for that term (`article_count` counts distinct articles). Say so if it happens, so the user can look at that article's file.
 
 ## What each output file is, in plain language
 
@@ -175,10 +227,10 @@ A run leaves several files in `output/`. Their names don't say much on their own
 The single-article extraction: this article's key events, its key event relationships, its own bibliographic details, and a short list of just the sources actually cited inside that evidence (not the article's full bibliography — see Step 3B), each one assigned a `ref_id`. Every key event and relationship carries a `references` field naming the specific `ref_id`(s) that back it (Step 3C) — so a claim can be traced to its exact citation, not just "somewhere in this article's bibliography." That reference list sits at the end of the file, after the pathway content, so opening the file shows the actual extraction first. Written the moment that article finishes, so if the run stops partway through, whichever of these already exist are complete and safe to use — nothing partial. Open one of these to sanity-check that a specific article was read correctly, independent of anything else in the batch.
 
 **`run_log.md`**
-A one-line-per-article log: which articles were processed, which were excluded as off-topic (Step 1b), which were processed but yielded no TOPIC-relevant content, which failed to open or had no readable text, how many pages were read. First stop if something seems off — e.g. if an article expected to contribute is missing from the tally, this file says whether it was excluded, came up empty, or failed outright, rather than just contributing nothing with no explanation.
+A one-line-per-article log: which articles were processed, which were processed as borderline on-topic (with the reason), which were excluded as off-topic (Step 1b, with the reason), which yielded no TOPIC-relevant content, which failed to open or had no readable text, how many pages were read. First stop if something seems off — e.g. if an article expected to contribute is missing from the tally, this file says whether it was excluded, came up empty, or failed outright, rather than just contributing nothing with no explanation.
 
 **`new_terms.json`**
-Every term (biological entity or relationship type) that didn't already exist in the ontology file and had to be minted during this run, plus which article(s) prompted it. Review this before adding anything permanently to the ontology — these are new, unreviewed additions. Anything carrying `possible_duplicate_of` is a term the run wasn't confident was new — a prompt for a human to decide by hand whether it should actually merge into the existing term it resembles.
+Every term (biological entity or relationship type) that didn't already exist in the ontology file and had to be minted during this run, plus which article(s) prompted it. Review this before adding anything permanently to the ontology — these are new, unreviewed additions. Anything carrying `possible_duplicate_of` is a term the run wasn't confident was new — a prompt for a human to decide whether it should actually merge into the existing term it resembles. If the user went through the end-of-run reviews (Step 8), this file also holds the record of those decisions: `resolved_duplicates` (each pair, the original reason, merged or kept separate, which term was kept, who decided, when) and `resolved_ontology_matches` (the same for terms checked against AOP-Wiki or other ontologies). Merged-away terms stay in the file, marked `merged_into`, so the full history is recoverable.
 
 **`merged_tally.json`**
 The actual deliverable. Every key event and relationship, merged across all articles that mention it, with two separate counts: `article_count` (how many articles support it) and `distinct_sources_cited` (how many distinct primary references those articles cite as evidence, deduplicated across the whole batch). A key event backed by 3 of 4 articles is a stronger claim than one backed by 1 — and one backed by 3 articles that each cite a different primary source is stronger still than one backed by 3 articles all citing the same source. This file is what makes both of those visible, which no single article's file can show on its own. In Full mode, entries also carry `layers` and `layer_details` wherever an article stated a species/circumstance qualifier, a confounder, or a developmental window.
@@ -189,8 +241,8 @@ Calls out key events or relationships that only one article supports, in a regio
 **`single_citation_flags`** (an array inside `merged_tally.json`, not its own file)
 Calls out key events or relationships backed by more than one article but only one distinct primary source between them — several reviews citing the same underlying study isn't the same as independent corroboration, and this is where that distinction becomes visible instead of getting flattened into a reassuring-looking article count.
 
-**`wording_suggestions.json`** (only if the optional post-extraction wording pass ran)
-Proposed relabelings for terms that don't already have a standard name, sourced from AOP-Wiki phrasing. Nothing in the actual data changes when this file is written — these are suggestions to apply by hand (swapping a label, not an id) if the user chooses to.
+**Relabeled files (only if the user adopted or merged terms in Step 8)**
+Merging a duplicate or adopting an AOP-Wiki term changes the term label inside the per-article files and regenerates `merged_tally.json`. Quotes and references are never changed, and `new_terms.json` keeps the original names, reasons, who decided, and when.
 
 ## Reference pathway example
 
