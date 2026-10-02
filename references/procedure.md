@@ -16,10 +16,10 @@ Ask which mode the user wants first, before any other input and before Step 1, a
 
 **Full** — everything in Simplified, plus four additional kinds of annotation, captured only when the article's own text states them (same verbatim-evidence discipline as everything else — if you can't quote it, don't add it):
 
-1. **Species-specific / conditional branching** — a KE/KER that only applies to certain species, or only under a stated non-species condition (e.g. a minor enzyme pathway that matters "under specific circumstances," a genotype-driven fast/slow-metabolizer split). Fields: `species_annotation` (object, species → short state string) and `molecular_basis` (string) on the KE; `gate_type`, `active_in`, `absent_in`, and an optional `note` (short free-text) on the KER for structural on/off-in-this-species-or-condition branching; `special_circumstances` (array of `{ "condition": "...", "evidence": "<verbatim quote>", "reference_ids": [] }`) for non-species qualifiers that don't cleanly fit the species fields; `has_special_circumstances` (true/false, derived from whether that array is non-empty). `species_annotation`, `molecular_basis`, `gate_type`, `active_in`, `absent_in`, and `note` carry no quote of their own: the KE's or KER's own `evidence` (or `additional_evidence`) quote must support them, and if no quote does, leave them out.
+1. **Species-specific / conditional branching** — a KE/KER that only applies to certain species, or only under a stated non-species condition (e.g. a minor enzyme pathway that matters "under specific circumstances," a genotype-driven fast/slow-metabolizer split). Fields: `species_annotation` (object, species → short state string) and `molecular_basis` (string) on the KE; `gate_type`, `active_in`, `absent_in`, and an optional `note` (short free-text) on the KER for structural on/off-in-this-species-or-condition branching (`gate_type` is one of `"species_conditional"`, `"circumstance_conditional"`, or `"genetic_conditional"`; `active_in` and `absent_in` list the species, circumstances, or genotypes the relationship does or doesn't operate in, matching the `gate_type`); `special_circumstances` (array of `{ "condition": "...", "evidence": "<verbatim quote>", "reference_ids": [] }`) for non-species qualifiers that don't cleanly fit the species fields; `has_special_circumstances` (true/false, derived from whether that array is non-empty). `species_annotation`, `molecular_basis`, `gate_type`, `active_in`, `absent_in`, and `note` carry no quote of their own: the KE's or KER's own `evidence` (or `additional_evidence`) quote must support them, and if no quote does, leave them out.
 2. **Confounders** — a variable that shifts a KER's probability or magnitude without gating whether it exists at all (sex, background malformation frequency, species physiology, a genetic polymorphism that changes metabolic rate rather than switching a pathway on/off). KER-level field: `confounders` (array of `{ "type": "sex" | "genetic_polymorphism" | "background_frequency" | "species_physiology" | "other", "description": "...", "evidence": "<verbatim quote>", "reference_ids": [] }`).
 3. **Developmental/temporal window** — a KE/KER that's only operative within a stated developmental stage or time window. Field: `developmental_window` (object: `{ "species": "...", "stage": "...", "time_range": "...", "evidence": "<verbatim quote>", "reference_ids": [] }`) on the KE or KER.
-4. **Initiating-event class** — on MIE key events only (`"mie": true`), whether the article frames this MIE's origin as genetic, chemical, or something else (disease-driven, endogenous, etc.). Field: `initiating_event_class`: `"genetic" | "chemical" | "other"`, grounded in the KE's existing `evidence` quote (or a separate verbatim quote if the classification is stated elsewhere in the text) — never inferred from what kind of entity it is.
+4. **Initiating-event class** — on MIE key events only (`"mie": true`), whether the article frames this MIE's origin as genetic, chemical, or something else (disease-driven, endogenous, etc.). Field: `initiating_event_class`: `"genetic" | "chemical" | "other"`, grounded in the KE's `evidence` quote, or in an `additional_evidence` quote if the classification is stated in a different sentence — never inferred from what kind of entity it is.
 
 Any KE/KER carrying #1, #2, or #3 also gets a `layers` field: an array drawn from `["species_conditional", "confounder", "developmental_window"]`, naming which of these three apply. This is the field a future visualizer toggle would filter on — it doesn't drive any behavior in this skill itself. A KE/KER with none of these stays untagged (no `layers` field), meaning "core pathway, always shown."
 
@@ -27,13 +27,15 @@ Why these four and not others, and why Case Study 2-style genetic/chemical conve
 
 ## Step 1: Read each article
 
-If ARTICLES names a folder, list every PDF in it now and process in filename order; record the full resolved list in the run log before starting, so there's a record of exactly what got processed this run.
+Before anything else, check whether the `output/` folder already exists and has files in it. If it does, it's from an earlier run: ask the user for a new output folder name (for example `output_2`) and use that for everything below, and don't overwrite the old one without an explicit yes. Reruns (for example after switching extraction mode) would otherwise overwrite `new_terms.json` and the review decisions saved in it. Wherever this document says `output/`, it means whichever folder was chosen.
+
+If ARTICLES names a folder, list every PDF in it now and process in filename order; record the full resolved list, and the extraction mode chosen, in the run log before starting, so there's a record of exactly what got processed this run and how.
 
 For each PDF: use the Read tool. If it's more than 10 pages, pass a page range (max 20 pages per call) and read in sequential chunks until the whole document is covered — don't assume one call gets everything. Read the entire article before starting Step 2; a connection between something introduced early and something described later would otherwise get missed. Each page returns as both text and an image, so figures/diagrams are visible as you read — no separate step needed for that.
 
 If a PDF fails to open or returns no readable content (likely scanned/image-only), note it in the run log, tell the user right away (see "Per-article callouts" below), and move to the next article rather than stopping the whole run.
 
-Derive this article's slug now: first author's last name + publication year, lowercase (e.g. `smith_2019`). Use it consistently everywhere this article is referenced. If two articles in the same batch would produce the same slug, disambiguate with `-a`/`-b` suffixes in processing order.
+Derive this article's slug now: first author's last name + publication year, lowercase (e.g. `smith_2019`). Use it consistently everywhere this article is referenced. If a later article in the batch would produce a slug already used by an earlier one, give the later article a `-b` suffix (then `-c`, and so on); the first article keeps the plain slug, because its file is already written and shouldn't be renamed. If the PDF is unreadable and no slug can be derived, use the PDF's filename (without `.pdf`) in the run log and in the callout.
 
 ## Step 1b: Confirm this article is actually relevant to TOPIC
 
@@ -76,14 +78,17 @@ Encode as:
 ```json
 {
   "aop_id": "<article_slug>",
+  "extraction_mode": "simplified",
   "key_events": [
-    { "id": "KE:0", "biological_entity_id": "<term_id>", "mie": true, "adverse_outcome": false, "source_type": "text", "evidence": "<verbatim quote from the article supporting this key event>", "reference_ids": [] }
+    { "id": "KE:0", "biological_entity_id": "<term_id>", "mie": true, "adverse_outcome": false, "source_type": "text", "evidence": "<verbatim quote from the article supporting this key event>", "reference_ids": [], "source_articles": ["<article_slug>"] }
   ],
   "key_event_relationships": [
-    { "id": "KER:0", "source": "KE:0", "target": "KE:1", "relationship": ["<relationship_type>"], "evidence": "<verbatim quote from the article supporting this relationship>", "reference_ids": [] }
+    { "id": "KER:0", "source": "KE:0", "target": "KE:1", "relationship": ["<relationship_type>"], "evidence": "<verbatim quote from the article supporting this relationship>", "reference_ids": [], "source_articles": ["<article_slug>"] }
   ]
 }
 ```
+
+`extraction_mode` is `"simplified"` or `"full"`, as chosen at the start of the run. In Step 2, write each `biological_entity_id` and relationship term as a provisional plain-language name; Step 4 replaces them with the final ids before the file is written in Step 5.
 
 `source_type` is `"text"`, `"figure"`, or `"both"` — whichever the key event was actually drawn from. Keep this distinction visible: figure-derived extractions are expected to be less reliable than text-derived ones.
 
@@ -145,13 +150,13 @@ If no match exists at all, before writing a free-text term, check for an already
 
 Relationship types follow the same reuse-or-mint discipline, not a separate one. Check the ontology's relationship-type category first (activates, inhibits, binds_to, etc.) and reuse an existing verb whenever it captures the actual meaning, even if the article's phrasing is more elaborate. Only mint a new relationship term when an existing one would genuinely lose meaning, not just because the article's wording is more specific or colorful. A new relationship term gets a clear `id`, a one-sentence `definition`, and a `direction` field describing which end is earlier/causal, matching the format of existing relationship-type entries. Log it in `new_terms.json` under the relationship-type category, not mixed in with entity terms.
 
-Track every genuinely new term in a running list for this session (don't write into the ontology file itself) — output it in Step 7.
+Record every genuinely new term (don't write into the ontology file itself): you'll add it to `output/new_terms.json` in Step 5, so the file builds up article by article and survives an interrupted run. Each entry is `{ "id": "...", "definition": "...", "category": "entity" | "relationship_type", "direction": "..." (relationship types only), "prompted_by": ["<article_slug>", ...], "possible_duplicate_of": "...", "reason": "..." }`, with the last two present only when flagged. If a later article mints or reuses a term already in the file, add its slug to `prompted_by` rather than adding a second entry.
 
 ## Step 5: Validate and write this article's file now
 
-Before moving to the next article, check: every KE and KER id is unique within this file; every KER's source/target points to a real KE id; every KE has `source_articles`, `source_type`, and `evidence` set; every KER has `evidence` set; every `evidence` value is an actual excerpt from the article's own text or figure (not a paraphrase or something generated to sound plausible); `source_article` (Step 3A) and the article's `references` list (Step 3B) are both present; every quote (the `evidence` quote, each `additional_evidence` entry, and in Full mode each `special_circumstances` / `confounders` entry and the `developmental_window`) has its `reference_ids` set (Step 3C) — `[]` is fine, missing is not, and every `ref_id` named actually exists in this file's `references` list. In Full mode, also check that every `species_annotation`, `molecular_basis`, `gate_type`, `active_in`, `absent_in`, `note`, `special_circumstances`, `confounders`, `developmental_window`, and `initiating_event_class` value is backed by a verbatim quote (the KE/KER's own `evidence` or `additional_evidence` quote, or for the entries that carry their own, that entry's quote) — not a paraphrase, and not something added because it seemed biologically plausible.
+Before moving to the next article, check: every KE and KER id is unique within this file; every KER's source/target points to a real KE id; every KE has `source_articles`, `source_type`, and `evidence` set; every KER has `source_articles` and `evidence` set; every `additional_evidence` quote is also an exact excerpt; every `evidence` value is an actual excerpt from the article's own text or figure (not a paraphrase or something generated to sound plausible); `source_article` (Step 3A) and the article's `references` list (Step 3B) are both present; every quote (the `evidence` quote, each `additional_evidence` entry, and in Full mode each `special_circumstances` / `confounders` entry and the `developmental_window`) has its `reference_ids` set (Step 3C) — `[]` is fine, missing is not, and every `ref_id` named actually exists in this file's `references` list. In Full mode, also check that every `species_annotation`, `molecular_basis`, `gate_type`, `active_in`, `absent_in`, `note`, `special_circumstances`, `confounders`, `developmental_window`, and `initiating_event_class` value is backed by a verbatim quote (the KE/KER's own `evidence` or `additional_evidence` quote, or for the entries that carry their own, that entry's quote) — not a paraphrase, and not something added because it seemed biologically plausible. Also check that `has_special_circumstances` is true exactly when `special_circumstances` is non-empty, and that every `layers` array lists exactly the layers whose annotations are actually present on that node (and that nodes with none of those annotations have no `layers`).
 
-Write `output/<article_slug>_pathway.json` now, containing `source_article`, `key_events`, `key_event_relationships`, and `references`. Do this immediately — don't wait until all articles are processed, so an interrupted run still leaves completed work on disk. Append one line to `output/run_log.md`: article slug, one of processed successfully / processed — borderline on-topic (reason) / processed — borderline on-topic, no TOPIC-relevant content found (reason) / processed — on-topic, but no key events extracted / excluded — not relevant to TOPIC (reason) / failed to open / no readable text found, plus pages read. Then apply "Per-article callouts" above.
+Write `output/<article_slug>_pathway.json` now, containing `aop_id`, `extraction_mode`, `source_article`, `key_events`, `key_event_relationships`, and `references`. Do this immediately — don't wait until all articles are processed, so an interrupted run still leaves completed work on disk. In the same step, add any terms this article minted to `output/new_terms.json` (create it with this article's terms if it's the first, otherwise add to it; see Step 4 for the entry format). Append one line to `output/run_log.md`: article slug, one of processed successfully / processed — borderline on-topic (reason) / processed — borderline on-topic, no TOPIC-relevant content found (reason) / processed — on-topic, but no key events extracted / excluded — not relevant to TOPIC (reason) / failed to open / no readable text found, plus pages read. Then apply "Per-article callouts" above.
 
 ## Step 6: Repeat Steps 1-5 for the next article
 
@@ -161,17 +166,88 @@ Continue through the full ARTICLES list. Each new article gets checked against t
 
 Once every article has its own file (Step 5), read them all back in and produce:
 
-- `output/new_terms.json` — every term minted this run that wasn't already in the ontology (including any `possible_duplicate_of` flags), plus which article(s) prompted each one. Write this file once, the first time Step 7 runs. If Step 7 is run again later (Step 8 does this after relabeling), regenerate **only** `merged_tally.json` — never rewrite `new_terms.json`, because by then it also holds the review decisions and `merged_into` marks from Step 8.
-- `output/merged_tally.json` — built by joining the per-article files on each KE's `biological_entity_id` (not its local `KE:N` id, which only exists within one article) and each KER's source entity, target entity, and relationship terms. A `relationship` field is a list of terms that together describe one arrow, so two articles describe the **same** relationship when they connect the same two key events *and* their lists share at least one term. For example, `["activates"]` and `["activates", "binds_to"]` merge into one relationship (both articles count toward it, and its terms are the combined list), while `["activates"]` and `["inhibits"]` do not. If two articles connect the same two key events with lists that share no term, keep them as separate entries and list the pair in a `relationship_disagreement_flags` array (the two key events, each article's list, which article said which) so a human can decide whether it's a real disagreement or just different wording; don't try to judge it. Each merged relationship also keeps `relationship_variants`: every contributing article's own list, so differences in wording stay visible. For each, record:
+- `output/new_terms.json` is already built, article by article, in Step 5. In Step 7 only check it: every term used in any per-article file is either in the ontology file or in `new_terms.json`. Don't rewrite it here. If Step 7's merge is run again later (Step 8 does this after relabeling), regenerate **only** `merged_tally.json`, because by then `new_terms.json` also holds the review decisions and `merged_into` marks from Step 8.
+- `output/merged_tally.json` — built by joining the per-article files on each KE's `biological_entity_id` (not its local `KE:N` id, which only exists within one article) and each KER's source entity, target entity, and relationship terms. A `relationship` field is a list of terms that together describe one arrow, so articles describe the **same** relationship when they connect the same two key events and their lists are linked by shared terms. Group them like this: take every list for the same two key events, and put two lists in the same group whenever they share a term, directly or through a chain (`["a"]`, `["a", "b"]` and `["b"]` all end up in one group, because the middle list links the other two, so the result doesn't depend on article order). Each group is one relationship: all of its articles count toward it, and its terms are the combined list. For example, `["activates"]` and `["activates", "binds_to"]` merge, while `["activates"]` and `["inhibits"]` end up in different groups. When the same two key events end up with more than one group, keep the groups as separate entries and list them in a `relationship_disagreement_flags` array (the two key events, each group's terms, and which articles are in each group) so a human can decide whether it's a real disagreement or just different wording; don't try to judge it. Each merged relationship also keeps `relationship_variants`: every contributing article's own list, so differences in wording stay visible. For each, record:
   - `article_count` and `supporting_articles`: how many articles support it, and which ones — the original tally.
   - `distinct_sources_cited` and `cited_sources`: collect every `ref_id` on every quote of every contributing article's version of this node (the `evidence` quote, each `additional_evidence` entry, and in Full mode each `special_circumstances` / `confounders` entry and the `developmental_window`), resolve them back to that article's own reference-list entries (author/year/title/journal/doi), then deduplicate across **all** contributing articles — the same primary source is often cited by more than one review in the batch, and that shouldn't inflate the count. Decide whether two entries are the same paper in this order, never on first author + year alone when titles are available (two different "Jones et al. 2012" papers must stay separate): (1) if both entries have a `doi`, same paper iff the DOIs match (case-insensitive); (2) otherwise, if both have a title and the normalized titles match (lowercased, punctuation and extra whitespace stripped): if the years also match, same paper; if the first author matches but the years differ (typically a preprint versus its published version), treat it as a **likely match** — count it once — and list it in `ambiguous_source_matches` for manual review, noting whether the journals match (if both entries have one) or differ; if the first author differs too, treat them as different papers; (3) only if a title is missing on either or both sides, fall back to first author + year, and list that pairing in an `ambiguous_source_matches` array in `merged_tally.json` (both entries, which articles they came from) so a human can confirm — don't silently merge or split it. Before writing `merged_tally.json`, re-check that every source merged via this fallback appears in `ambiguous_source_matches`; a fallback merge that isn't listed there is a mistake. Where titles differ slightly because of typos or abbreviation but author and year match, treat as different and list it in `ambiguous_source_matches` too; undercounting a shared source is the safer error than silently merging two different papers. `cited_sources` is the deduplicated list (`{ "first_author": ..., "year": ..., "title": ..., "journal": ..., "doi": ... }`); `distinct_sources_cited` is its length. This is a different number from `article_count` on purpose — a KE backed by 1 article citing 4 distinct primary sources is better evidenced than one backed by 3 articles all citing the same single source, and this makes that visible.
   - In Full mode only: a `layers` field (union of every contributing article's `layers` values for this KE/KER) and a `layer_details` array, one entry per contributing article that supplied any Full-mode annotation: `{ "article_slug": "...", "species_annotation": ..., "molecular_basis": ..., "gate_type": ..., "active_in": ..., "absent_in": ..., "note": ..., "special_circumstances": ..., "confounders": ..., "developmental_window": ..., "initiating_event_class": ... }`, including only the sub-fields that article actually populated. Don't reconcile disagreements between articles here (e.g. one says a branch is species-conditional on rat/human, another gives different species) — list both entries under `layer_details` and let a human notice the discrepancy, same as `single_source_flags` below.
 - Within `merged_tally.json`, a `single_source_flags` array: any key event or relationship supported by only one article where the other articles clearly do discuss that same region of the pathway (not just articles that never touched that topic at all). Don't judge whether these are real biological differences or extraction misses — just surface them.
 - A separate `single_citation_flags` array: any KE/KER where `article_count` is more than 1 but `distinct_sources_cited` is only 1 — several articles all repeating the same single primary source is a materially weaker claim than the article count alone suggests, and it's a distinct condition from `single_source_flags` (which is about article coverage, not citation depth), so keep the two arrays separate rather than merging them.
 
+Overall shape of `merged_tally.json` (merged entries have no ids of their own; a key event is identified by its `biological_entity_id`, a relationship by its `source` and `target` entities plus terms). A merged `mie` or `adverse_outcome` is `true` if any contributing article marks it true; each article's own values stay visible in `per_article`, so a disagreement can be seen. The quotes themselves stay in the per-article files and are not copied here.
+
+```json
+{
+  "topic": "<TOPIC>",
+  "extraction_mode": "full",
+  "articles_included": ["smith_2019", "jones_2021"],
+  "key_events": [
+    {
+      "biological_entity_id": "napqi",
+      "mie": false,
+      "adverse_outcome": false,
+      "article_count": 2,
+      "supporting_articles": ["smith_2019", "jones_2021"],
+      "distinct_sources_cited": 1,
+      "cited_sources": [
+        { "first_author": "Chen", "year": 2008, "title": "<title>", "journal": "<journal>", "doi": null }
+      ],
+      "per_article": [
+        { "article_slug": "smith_2019", "mie": false, "adverse_outcome": false, "source_type": "text" },
+        { "article_slug": "jones_2021", "mie": false, "adverse_outcome": false, "source_type": "both" }
+      ],
+      "layers": [],
+      "layer_details": []
+    }
+  ],
+  "key_event_relationships": [
+    {
+      "source": "cyp2e1",
+      "target": "napqi",
+      "relationship": ["oxidizes_to", "forms"],
+      "relationship_variants": [
+        { "article_slug": "smith_2019", "relationship": ["oxidizes_to"] },
+        { "article_slug": "jones_2021", "relationship": ["oxidizes_to", "forms"] }
+      ],
+      "article_count": 2,
+      "supporting_articles": ["smith_2019", "jones_2021"],
+      "distinct_sources_cited": 1,
+      "cited_sources": [
+        { "first_author": "Chen", "year": 2008, "title": "<title>", "journal": "<journal>", "doi": null }
+      ],
+      "layers": [],
+      "layer_details": []
+    }
+  ],
+  "single_source_flags": [
+    { "kind": "key_event", "item": "gsh_depletion", "supported_by": "smith_2019" }
+  ],
+  "single_citation_flags": [
+    { "kind": "relationship", "item": { "source": "cyp2e1", "target": "napqi" }, "article_count": 2, "only_source": { "first_author": "Chen", "year": 2008, "title": "<title>" } }
+  ],
+  "relationship_disagreement_flags": [
+    {
+      "source": "napqi",
+      "target": "gsh_depletion",
+      "groups": [
+        { "relationship": ["depletes"], "articles": ["smith_2019"] },
+        { "relationship": ["spares"], "articles": ["jones_2021"] }
+      ]
+    }
+  ],
+  "ambiguous_source_matches": [
+    {
+      "source_a": { "first_author": "Jones", "year": 2012, "title": null, "from_article": "smith_2019" },
+      "source_b": { "first_author": "Jones", "year": 2012, "title": "<title>", "from_article": "jones_2021" },
+      "reason": "title missing on one side; matched on first author and year"
+    }
+  ]
+}
+```
+
 ## Step 8: End-of-run summary and interactive checkpoints
 
-Runs after Step 7, once every article's file and `merged_tally.json` are written. Nothing here changes what the earlier steps write — it only adds what's said to the user, plus the two optional review checkpoints below. Everything in 8b and 8c is relabeling only (see "What relabeling may and may not do"). The ontology file itself is never modified at any point in Step 8; every new or adopted term lives in `output/new_terms.json`, for a human to add to the ontology later.
+Runs after Step 7, once every article's file and `merged_tally.json` are written. 8a only adds what's said to the user. The two optional review checkpoints (8b and 8c) can change term labels inside the per-article files and then regenerate `merged_tally.json`, and nothing else (see "What relabeling may and may not do"). To keep that safe: before the first relabel of the session, copy every per-article pathway file into `output/pre_relabel_backup/`; make each relabel a targeted replacement of just the term text, never by re-writing a whole JSON file from memory, which risks altering quotes; and regenerate `merged_tally.json` only after the relabeling is finished. If the session is interrupted partway, the per-article files are the source of truth, so just regenerate the tally from them. The ontology file itself is never modified at any point in Step 8; every new or adopted term lives in `output/new_terms.json`, for a human to add to the ontology later.
 
 ### 8a. Summary (always print)
 
@@ -192,9 +268,9 @@ Record every decision, merges and keep-separates alike, in a `resolved_duplicate
 - `decided_by`: ask the user once, at the first decision, for the name to record, and reuse it for the rest of the session. Don't infer it from the environment or guess.
 - `decided_at`: UTC timestamp, ISO 8601, read from the system clock (e.g. `date -u +%Y-%m-%dT%H:%M:%SZ`), not estimated.
 - A `kept_separate` entry is logged exactly like a merge. It documents that a person reviewed the pair and chose not to merge it.
-- Before applying a merge, check every per-article file for a relationship that directly connects the two terms (one as source, the other as target). If there is one, tell the user which article and relationship it is, explain that merging would turn it into a relationship from a term to itself, and ask whether to merge anyway or keep the pair separate. Don't remove the relationship on your own. Relationships to *other* key events need no check: they point at key events by internal id, so they follow the relabeled term automatically.
-- On a merge, relabel the non-canonical term to the canonical one in every `output/<article_slug>_pathway.json` where it appears (`biological_entity_id` for entity terms, the `relationship` array for relationship types; if a relationship array then lists the same term twice, keep one). Do not touch `evidence`, `additional_evidence`, `reference_ids`, the `references` list, or any other field. The supporting quotes stay exactly as extracted and attributed to their own article. Mark the non-canonical entry in `new_terms.json` with `"status": "merged_into"` and `"merged_into": "<canonical>"`; don't delete it.
-- When anything was merged, regenerate `merged_tally.json` only, by re-running the merge part of Step 7 (not the `new_terms.json` part), so the tally reflects the standardized labels.
+- Before applying a merge, check every per-article file for a relationship that connects the two terms, either directly (one as source, the other as target) or through a chain of other key events. If there is one, tell the user which article and which relationship or chain it is, explain that merging would turn it into a loop (a term leading to itself), and ask whether to merge anyway or keep the pair separate. Don't remove the relationship on your own. Relationships to *other* key events need no check: they point at key events by internal id, so they follow the relabeled term automatically.
+- On a merge, relabel the non-canonical term to the canonical one in every `output/<article_slug>_pathway.json` where it appears (`biological_entity_id` for entity terms, the `relationship` array for relationship types; if a relationship array then lists the same term twice, keep one). Do not touch `evidence`, `additional_evidence`, `reference_ids`, the `references` list, or any other field. The supporting quotes stay exactly as extracted and attributed to their own article. Mark the non-canonical entry in `new_terms.json` with `"status": "merged_into"` and `"merged_into": "<canonical>"`; don't delete it. Point any other entry's `possible_duplicate_of` that named the merged-away term at the canonical term instead. The `resolved_duplicates` and `resolved_ontology_matches` records are history, so they keep the names exactly as they were when the decision was made.
+- When anything was merged, regenerate `merged_tally.json` only, by re-running the merge in Step 7 (`new_terms.json` is left alone), so the tally reflects the standardized labels.
 
 ### 8c. Ontology-check checkpoint (interactive)
 
@@ -210,7 +286,7 @@ Ask: "Would you like to run a check of the new terms against existing ontologies
 - Report in plain language, e.g. "5 out of 10 new terms have potential matches on AOP-Wiki." Then ask: "Would you like to review these matches?" If no, the terms stay as written and the flow continues to Step 2.
 - If yes: for each term with a potential match, show the new term and its definition beside the candidate AOP-Wiki key event (title, ID, definition), and let the user choose to **adopt** the AOP-Wiki term or **keep** the original.
 - Log every decision in a `resolved_ontology_matches` array in `new_terms.json`, parallel to `resolved_duplicates`: `source` (`"AOP-Wiki"`), `original_term`, `candidate_term`, `candidate_id`, `decision` (`"adopted"` or `"kept_original"`), `kept_term`, `decided_by`, `decided_at` (same rules as 8b).
-- On **adopt**: the adopted term is still a term that is new to the ontology file, so it stays in `new_terms.json`. Update that entry so its `id` is the AOP-Wiki title in the ontology's id style (lowercase, underscores), its definition is AOP-Wiki's, and it carries `aopwiki_id` and `source: "AOP-Wiki"`; keep the label the run originally minted as `originally_minted_as`. Relabel in the per-article files exactly as in 8b (evidence untouched, same relationship-to-self check, same tally-only regeneration of `merged_tally.json`). The `resolved_ontology_matches` entry is the record of the decision.
+- On **adopt**: the adopted term is still a term that is new to the ontology file, so it stays in `new_terms.json`. Update that entry so its `id` is the AOP-Wiki title in the ontology's id style (lowercase, underscores), its definition is AOP-Wiki's, and it carries `aopwiki_id` and `source: "AOP-Wiki"`; keep the label the run originally minted as `originally_minted_as`. Before adopting, check that the new id isn't already used in the ontology file or by another term in `new_terms.json`. If it is, tell the user and handle it as a merge into that existing term (same checks as 8b). Also, if the adopted label is already used on another key event in any article, apply the same loop check as 8b before relabeling. Then relabel in the per-article files exactly as in 8b (evidence untouched, same backup and targeted-replacement rules, tally-only regeneration of `merged_tally.json`), and update any `possible_duplicate_of` that named the old label. The `resolved_ontology_matches` entry is the record of the decision.
 
 **Step 2 — other ontology sources (optional, user decides, context first).** After Step 1, ask whether to check the terms still not adopted into an AOP-Wiki term against **BioCarta** and/or the **eTRANSAFE "Rosetta Stone"** mapping resource. Show a short description of each first, so the user can judge whether it's relevant to this pathway:
 - *BioCarta* — curated diagrams of gene/protein-level signaling and metabolic pathways, essentially a labeled map of how particular genes and proteins interact in a defined process. Useful when a new term describes a signaling or metabolic step that already has an established pathway name. It hasn't been actively maintained in years, so its vocabulary reflects older, well-established pathway biology.
@@ -243,6 +319,9 @@ The actual deliverable. Every key event and relationship, merged across all arti
 **`single_source_flags`** (an array inside `merged_tally.json`, not its own file)
 Calls out key events or relationships that only one article supports, in a region of the pathway the other articles clearly do discuss. A deliberate "look here," not a verdict — the run doesn't judge whether that's a real point of biological disagreement between articles or a place where extraction went wrong on one side, a human makes that call.
 
+**`ambiguous_source_matches`** (an array inside `merged_tally.json`, not its own file)
+Calls out cited papers the skill had to match on first author and year alone (because a title was missing), or that look like the same paper with different years. A human confirms whether they really are the same paper, since that affects `distinct_sources_cited`.
+
 **`relationship_disagreement_flags`** (an array inside `merged_tally.json`, not its own file)
 Calls out two articles that connect the same two key events but describe the relationship with no verb in common (for example "activates" versus "inhibits"). They are kept as separate relationships, not merged, and surfaced so a human can tell a real disagreement from different wording.
 
@@ -250,7 +329,7 @@ Calls out two articles that connect the same two key events but describe the rel
 Calls out key events or relationships backed by more than one article but only one distinct primary source between them — several reviews citing the same underlying study isn't the same as independent corroboration, and this is where that distinction becomes visible instead of getting flattened into a reassuring-looking article count.
 
 **Relabeled files (only if the user adopted or merged terms in Step 8)**
-Merging a duplicate or adopting an AOP-Wiki term changes the term label inside the per-article files and regenerates `merged_tally.json`. Quotes and references are never changed, and `new_terms.json` keeps the original names, reasons, who decided, and when.
+Merging a duplicate or adopting an AOP-Wiki term changes the term label inside the per-article files and regenerates `merged_tally.json`. Quotes and references are never changed, and `new_terms.json` keeps the original names, reasons, who decided, and when. A copy of the per-article files from before the first relabel is kept in `output/pre_relabel_backup/`.
 
 ## Reference pathway example
 
@@ -277,7 +356,7 @@ Anchors format and granularity only (Step 2). No matching source text exists for
 
 ## Reference pathway example — Full mode, species-conditional branching
 
-Anchors the four Full-mode annotation types (species/circumstance branching shown here; confounders, developmental windows, and initiating-event class follow the same attach-to-KE/KER, quote-backed pattern). Also predates filled-in `reference_ids` in this excerpt — a real run's evidence would carry actual `ref_id`s, not an empty list.
+Anchors the four Full-mode annotation types (species/circumstance branching shown here; confounders, developmental windows, and initiating-event class follow the same attach-to-KE/KER, quote-backed pattern). Also predates `extraction_mode`, `source_articles`, `evidence`, and filled-in `reference_ids` in this excerpt (every node in a real file has them). Here `glucuronidation_capacity` is marked as an endpoint because nothing in this branch follows it, which is what `adverse_outcome` means in this skill — a real run's evidence would carry actual `ref_id`s, not an empty list.
 
 ```json
 {
@@ -290,7 +369,7 @@ Anchors the four Full-mode annotation types (species/circumstance branching show
       "id": "KE:3",
       "biological_entity_id": "glucuronidation_capacity",
       "mie": false,
-      "adverse_outcome": false,
+      "adverse_outcome": true,
       "species_annotation": { "cat": "absent", "human": "present" },
       "molecular_basis": "ugt1a6_pseudogene_in_felids",
       "layers": ["species_conditional"],

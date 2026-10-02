@@ -14,7 +14,7 @@ During extraction it uses the papers and nothing else. It doesn't fill gaps with
 - **A topic.** The mechanism or subject to extract, for example "Acetaminophen-Induced Hepatotoxicity."
 - **A topic description** (optional, recommended). One to three sentences narrowing the topic: direction of causation, organ, exposure type. Don't describe pathway steps here, only what counts as in scope.
 - **A folder of PDFs.** Every article you want processed, with nothing else in the folder. An ordered list of file paths also works.
-- **An ontology file** (optional). A `pathwise_ontology.json` reference dictionary of terms to reuse across runs. If you have one from an earlier run, point to it so terminology stays consistent.
+- **An ontology file** (optional). A `pathwise_ontology.json` reference dictionary of terms to reuse across runs. If you have one from an earlier run, point to it so terminology stays consistent. If you don't have one, the run starts empty and lists every term it needs in `new_terms.json`. The skill never creates or changes an ontology file itself.
 
 You don't need to prepare any of this in a special format. Tell Claude Code what you want extracted and where the PDFs are, and it will ask for whatever is missing.
 
