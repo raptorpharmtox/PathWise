@@ -6,7 +6,7 @@ During extraction it uses the papers and nothing else. It doesn't fill gaps with
 
 ## What you need before running it
 
-- **Extraction Mode:.** The skill asks this first. There are two options:
+- **Extraction Mode:** The skill asks this first. There are two options:
   - **Simplified:** the basic pathway. It records what starts the pathway, each step along the way, how the steps connect, and the final outcome, along with the quote and citations behind each one.
   - **Full:** everything in Simplified, plus extra details whenever an article mentions them. These include differences between species, factors like sex or genetics that change how strong an effect is, the stage of development when something happens, steps that only apply in special circumstances, and whether the trigger is genetic, chemical, or something else.
 
