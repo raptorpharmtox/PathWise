@@ -76,6 +76,17 @@ When it finishes, it prints a summary: key event and relationship totals, which 
 - Choosing Simplified mode means any extra detail (species, confounders, special circumstances) can only be added later by running the batch again.
 - None of the recent changes have been run on a real batch of PDFs yet.
 
+## Future directions
+
+- **One pathway per topic, not per review.** Right now each review article produces its own pathway file, and `merged_tally.json` counts what they share. The goal is a single combined pathway built from all the reviews on a topic. That needs a team decision first on how to handle conflicting information, and on what to keep when one review goes further than another.
+- **Finding the reviews automatically.** The long-term aim is to give the agent a pathway idea and have it gather the freely available review articles itself, then build the combined pathway with weights or scores.
+- **Scoring review article quality.** Rate each review with checklists such as AMSTAR, PRISMA, or SANRA, depending on the article type. The result could be an overall score or a short written assessment.
+- **Improving the evidence behind each step.** The quality fields mostly come back "unknown," because reviews rarely describe the tests behind a claim. Contributors with access to the cited studies could fill these in later, and the criteria will be refined over time.
+- **A new pathway naming convention.** Pathways are named after the initiating event and the adverse outcome. This is expected to change so the name no longer uses the adverse outcome.
+- **Benchmarking against manual extraction.** Extract a new batch by hand (cisplatin-induced kidney injury is the proposed topic) and compare it with the skill's output.
+- **BioCarta and Rosetta Stone matching.** The end-of-run ontology check describes these two resources but can't match against them yet.
+- **Graph database.** Loading pathways into a graph database would allow queries across pathways, such as finding steps where an opposite action leads to a different outcome, and building combined pathways with that logic included.
+
 ## Full details
 
 See [SKILL.md](SKILL.md) and [references/procedure.md](references/procedure.md) for the full procedure, including the exact JSON layout, the term-matching rules, and the checks run on each article.
