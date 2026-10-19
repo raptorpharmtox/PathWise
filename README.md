@@ -37,14 +37,14 @@ Everything is written to an `output/` folder:
 |---|---|
 | `<aop_id>.json` | One per article, named like `cyp2e1@hepatocyte_necrosis_smith_2019.json` (initiating event, `@`, adverse outcome, then the article's name). Its key events and relationships, each with the quotes that support it and the citations attached to each quote, plus the list of sources it cites. |
 | `run_log.md` | One line per article: processed, excluded as off-topic, borderline, or failed to read, with the reason and pages read. Check here first if an article seems to be missing. |
-| `new_terms.json` | Every new ontology term minted this run, for your review. Nothing is added to your ontology automatically. If you do the end-of-run reviews, it also records each decision (merged, kept separate, or adopted from an ontology), the reason, who decided, and when. |
+| `new_terms.json` | Every new ontology term minted this run, for your review. Nothing is added to your ontology automatically. If you do the end-of-run reviews, it also records each decision (merged, kept separate, same or different relationship, or adopted from an ontology), the reason, who decided, and when. |
 | `merged_tally.json` | The main result. Every key event and relationship merged across articles, with `article_count` (how many articles support it) and `distinct_sources_cited` (how many different papers those articles cite for it). It also holds the flag lists described below. In Full mode it carries the extra detail too. |
 
 The flag lists inside `merged_tally.json` are places to look at, not verdicts:
 
 - `single_source_flags`: supported by only one article, in an area other articles also cover.
 - `single_citation_flags`: supported by several articles that all cite the same one paper.
-- `relationship_disagreement_flags`: two articles connect the same two key events but don't use exactly the same pair of tags (for example "activates" and "inhibits"). This can be a real disagreement or just different wording, so it's for you to check.
+- `relationship_disagreement_flags`: two articles connect the same two key events but don't use exactly the same pair of tags (for example "activates" and "inhibits"). This can be a real disagreement or just different wording. You can sort these out in the end-of-run review.
 - `ambiguous_source_matches`: cited papers the skill had to match by author and year, or likely the same paper with different years, so you can confirm them.
 
 ## How relationships are written
@@ -53,13 +53,13 @@ Each relationship has exactly two tags, separated by a comma. The first says wha
 
 Once an earlier article has set the tags for a relationship, later articles describing the same thing reuse them. Two articles only count toward the same relationship when both tags match exactly, in the same order.
 
-The two tags are never used to record opposite actions. If one article says A activates B and another says A inhibits B, that leads to a different outcome, so it is a different pathway. The skill keeps them as separate relationships and flags them.
+The two tags can point in different directions. `["activates", "inhibits"]` means the first event is activated, and that inhibits the second. If one article says A activates B and another says A inhibits B, that leads to a different outcome, so it is a different pathway. The skill keeps them as separate relationships and flags them.
 
 ## While it runs and when it finishes
 
 While it runs, Claude tells you right away if an article fails to open, is excluded as off-topic, is borderline on-topic, or yields no key events, and gives a reason each time.
 
-When it finishes, it prints a summary: key event and relationship totals, which articles were flagged and why, and the possible duplicate term pairs by name. It then offers two optional reviews. The first steps through the possible duplicates one at a time. The second checks the new terms against existing ontologies, AOP-Wiki first. It also describes BioCarta and the eTRANSAFE Rosetta Stone and asks if you want them, but matching against those two isn't built yet, so it just notes your choice in the run log. It doesn't interpret the biology. That part is up to you.
+When it finishes, it prints a summary: key event and relationship totals, which articles were flagged and why, and the possible duplicate term pairs by name. It then offers three optional reviews. The first steps through the possible duplicates one at a time. The second steps through relationship disagreements, where you mark each one as the same meaning (so the articles count together) or different (kept apart). The third checks the new terms against existing ontologies, AOP-Wiki first. It also describes BioCarta and the eTRANSAFE Rosetta Stone and asks if you want them, but matching against those two isn't built yet, so it just notes your choice in the run log. It doesn't interpret the biology. That part is up to you.
 
 ## Scope
 
