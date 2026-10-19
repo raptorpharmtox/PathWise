@@ -44,12 +44,14 @@ The flag lists inside `merged_tally.json` are places to look at, not verdicts:
 
 - `single_source_flags`: supported by only one article, in an area other articles also cover.
 - `single_citation_flags`: supported by several articles that all cite the same one paper.
-- `relationship_disagreement_flags`: two articles connect the same two key events but their tags don't match in either position (for example "activates" and "inhibits").
+- `relationship_disagreement_flags`: two articles connect the same two key events but don't use exactly the same pair of tags (for example "activates" and "inhibits"). This can be a real disagreement or just different wording, so it's for you to check.
 - `ambiguous_source_matches`: cited papers the skill had to match by author and year, or likely the same paper with different years, so you can confirm them.
 
 ## How relationships are written
 
-Each relationship has exactly two tags, separated by a comma. The first describes the relationship from the first event's side, and the second describes it from the second event's side, for example `["metabolizes_into", "forms"]`. If a relationship reads the same from both sides, the word is repeated, for example `["binds_to", "binds_to"]`.
+Each relationship has exactly two tags, separated by a comma. The first says what happens to the first event, and the second says what that does to the second event, for example `["oxidizes_to", "formed_from"]`. The tags follow the article's own wording as closely as possible. If a relationship reads the same from both sides, or the article only describes one side, the word is repeated, for example `["binds_to", "binds_to"]`.
+
+Once an earlier article has set the tags for a relationship, later articles describing the same thing reuse them. Two articles only count toward the same relationship when both tags match exactly, in the same order.
 
 The two tags are never used to record opposite actions. If one article says A activates B and another says A inhibits B, that leads to a different outcome, so it is a different pathway. The skill keeps them as separate relationships and flags them.
 
@@ -57,11 +59,11 @@ The two tags are never used to record opposite actions. If one article says A ac
 
 While it runs, Claude tells you right away if an article fails to open, is excluded as off-topic, is borderline on-topic, or yields no key events, and gives a reason each time.
 
-When it finishes, it prints a summary: key event and relationship totals, which articles were flagged and why, and the possible duplicate term pairs by name. It then offers two optional reviews. The first steps through the possible duplicates one at a time. The second checks the new terms against existing ontologies, AOP-Wiki first, then BioCarta and the eTRANSAFE Rosetta Stone if you want them. It doesn't interpret the biology. That part is up to you.
+When it finishes, it prints a summary: key event and relationship totals, which articles were flagged and why, and the possible duplicate term pairs by name. It then offers two optional reviews. The first steps through the possible duplicates one at a time. The second checks the new terms against existing ontologies, AOP-Wiki first. It also describes BioCarta and the eTRANSAFE Rosetta Stone and asks if you want them, but matching against those two isn't built yet, so it just notes your choice in the run log. It doesn't interpret the biology. That part is up to you.
 
 ## Scope
 
-**Always included:** pathway extraction, per-article citations tied to each key event and relationship, two quality notes on each (whether the article reports counterfactual evidence for that step, such as a competition or knockout experiment, and whether it reports attempts to disprove it), term matching against your ontology, and a tally across articles (both an article count and a count of distinct cited papers).
+**Always included:** pathway extraction, per-article citations tied to each key event and relationship, two quality notes on each (whether the article reports a competition or specificity test for that step, and whether it reports an attempt to disprove it, such as a knockout, blocking, or rescue experiment; each is true, false, or unknown, and unknown is the usual answer), term matching against your ontology, and a tally across articles (both an article count and a count of distinct cited papers).
 
 **Full mode only:** species-specific or conditional branching (including minor pathways that only matter under specific circumstances), confounders (sex, genetic polymorphisms, background rates, species physiology), developmental windows, and initiating-event class. These are recorded only when an article's own text states them, and each one is tagged so a future visualizer can show or hide them separately from the core chain.
 
