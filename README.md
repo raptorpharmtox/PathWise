@@ -83,9 +83,8 @@ When it finishes, it prints a summary: key event and relationship totals, which 
 - **Scoring review article quality.** Rate each review with checklists such as AMSTAR, PRISMA, or SANRA, depending on the article type. The result could be an overall score or a short written assessment.
 - **Improving the evidence behind each step.** The quality fields mostly come back "unknown," because reviews rarely describe the tests behind a claim. Contributors with access to the cited studies could fill these in later, and the criteria will be refined over time.
 - **A new pathway naming convention.** Pathways are named after the initiating event and the adverse outcome. This is expected to change so the name no longer uses the adverse outcome.
-- **Benchmarking against manual extraction.** Extract a new batch by hand (cisplatin-induced kidney injury is the proposed topic) and compare it with the skill's output.
 - **BioCarta and Rosetta Stone matching.** The end-of-run ontology check describes these two resources but can't match against them yet.
-- **Graph database.** Loading pathways into a graph database would allow queries across pathways, such as finding steps where an opposite action leads to a different outcome, and building combined pathways with that logic included.
+- **Visualizing the extra detail in RiskLytx.** Show the Full-mode layers (species differences, confounders, developmental windows) so they can be turned on and off. Also show the evidence behind each key event and relationship: the quality fields, the supporting quotes, and how many articles and cited papers back it.
 
 ## Full details
 
