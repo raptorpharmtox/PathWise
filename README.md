@@ -1,6 +1,12 @@
 # PathwayWise
 Home of PathWise: the open source Adverse Outcome Pathway project.
 
+## Using the pathway-extraction skill
+
+To extract a pathway from PDF articles with Claude Code, you only need one folder, not this whole repository: download `pathway-extraction-workspace.zip` from the [latest release](https://github.com/raptorpharmtox/PathWise/releases/latest), unzip it, open the folder in Claude Code, put your PDFs in its `papers` folder, and ask for the pathway. The folder comes with lockdown settings that keep Claude to your PDFs only. See [the skill's README](pathway-extraction-workspace/.claude/skills/pathway-extraction/README.md#start-here) for step-by-step instructions.
+
+For maintainers: the skills live only in `pathway-extraction-workspace/.claude/skills/` (`pathway-extraction` and `reference-check`); edit them there. To publish a new download, push a tag like `pathway-extraction-v1.4.0`. The [release workflow](.github/workflows/release_workspace.yml) zips the workspace, adds the current `pathwise_ontology.json` if the workspace doesn't already have one, and attaches the zip to a release.
+
 # Background
 
 One challenge with the current AOP-Wiki is that it runs on a first-come-first-owned basis. That first author of an entity in the wiki becomes the owner, and must approve any and all changes. So this doesn't quite embrace the open source workflow that works best in the software development world. We want to change this to make it easier for anyone to work with AOPs.

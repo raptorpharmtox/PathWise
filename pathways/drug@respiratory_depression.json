@@ -1,0 +1,87 @@
+{"aop_id": "drug@respiratory_depression_human_1",
+"key_events": [
+        {
+            "id": "KE:0",
+            "biological_entity_id": "respiratory_chemoreflexes",
+            "mie": true,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:1",
+            "biological_entity_id": "peripheral/central_sites",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:2",
+            "biological_entity_id": "rapid_stabilization_of_arterial_pco2",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:3",
+            "biological_entity_id": "brainstem_neurons",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:4",
+            "biological_entity_id": "breathing",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:5",
+            "biological_entity_id": "chemical_binding_brainstem_receptors",
+            "mie": false,
+            "adverse_outcome": false
+        },
+        {
+            "id": "KE:6",
+            "biological_entity_id": "hypoventilation",
+            "mie": false,
+            "adverse_outcome": true
+        }
+    
+
+    ],
+    "key_event_relationships":[
+        {
+            "id": "KER:1",
+            "source":"KE:0",
+            "target":"KE:1",
+            "relationship": ["initiated_at"]
+        },
+        {
+            "id": "KER:2",
+            "source":"KE:1",
+            "target":"KE:2",
+            "relationship": ["mediates"]
+        },
+        {
+            "id": "KER:3",
+            "source":"KE:2",
+            "target":"KE:3",
+            "relationship": ["activates_via_intrinsic_proton_receptors"]
+        },
+        {
+            "id": "KER:4",
+            "source":"KE:3",
+            "target":"KE:4",
+            "relationship": ["stimulates"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:5",
+            "target":"KE:3",
+            "relationship": ["blocking"]
+        },
+        {
+            "id": "KER:5",
+            "source":"KE:5",
+            "target":"KE:6",
+            "relationship": ["leads_to", "results_in"]
+        }
+        
+    ]
+}
